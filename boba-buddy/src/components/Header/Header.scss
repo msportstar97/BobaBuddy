@@ -1,0 +1,21 @@
+.Header {
+  width: 100%;
+  padding-top: 20px;
+  background-color: #C7EBDE;
+  padding-bottom: 20px;
+
+  .title {
+    display: inline-block;
+    margin-left: 50px;
+  }
+
+  .buttons {
+    display: inline-block;
+    margin-left: 60%;
+  }
+
+  #login-button, #signup-button {
+    display: inline-block;
+    margin-left: 10px;
+  }
+}
