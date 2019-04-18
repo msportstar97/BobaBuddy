@@ -1,16 +1,20 @@
 import './Home.scss';
 import React, { Component } from 'react';
 import Header from '../Header/Header.js';
-import {Button, Form, FormControl} from 'react-bootstrap';
+import { Button } from 'semantic-ui-react'
+import {Form, FormControl} from 'react-bootstrap';
+import { Dropdown } from 'semantic-ui-react'
+import { LinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router-dom'
 
 
 
 const Search = () => {
   return (
-    <div class = "search-bar">
+    <div className = "search-bar">
       <Form inline>
-        <FormControl id = "search-form" type="text" placeholder="Search for location (address, zip code..)" size="lg" />
-        <Button size="lg" variant="outline-dark" >Search</Button>
+        <FormControl id = "search-form" type="text" placeholder="Search for location (address, zip code..)" />
+        <Button basic color='black'>Search</Button>
       </Form>
     </div>
   );

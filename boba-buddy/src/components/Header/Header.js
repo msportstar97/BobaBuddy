@@ -1,7 +1,7 @@
 import './Header.scss';
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/Button';
-
+import { Button } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 class Header extends Component {
    render() {
@@ -9,8 +9,10 @@ class Header extends Component {
        <div className="Header">
         <div className = "title"> Boba Buddy </div>
         <div className = "buttons">
-          <Button id = "login-button" variant="outline-dark"> Log In </Button>
-          <Button id = "signup-button" variant="outline-dark"> Sign Up </Button>
+          <Link to="/Login">
+            <Button id = "login-button" basic color='black'> Log In </Button>
+          </Link>
+            <Button id = "signup-button" basic color='black'> Sign Up </Button>
         </div>
        </div>
      );
