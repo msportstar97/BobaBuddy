@@ -1,21 +1,27 @@
+$font: 2vw;
+
 .Header {
   width: 100%;
-  padding-top: 20px;
   background-color: #C7EBDE;
-  padding-bottom: 20px;
+  display: grid;
+  grid-template-areas: "title buttons";
+  grid-template-columns: 20vw 1fr;
+  height: 8vh;
+
+  .title-box {
+    text-decoration: none;
+    align-self: center;
+  }
 
   .title {
-    display: inline-block;
-    margin-left: 50px;
-
+    grid-area: title;
+    font-size: $font;
+    margin-left: 5vw;
   }
+
   .buttons {
-    display: inline-block;
-    margin-left: 70%;
-  }
-
-  #login-button, #signup-button {
-    display: inline-block;
-    margin-left: 10px;
+    grid-area: buttons;
+    align-self: center;
+    margin-left: 80%;
   }
 }

@@ -7,14 +7,16 @@ class Header extends Component {
    render() {
      return (
        <div className="Header">
-       <Link to="/" style={{textDecoration: 'none'}}>
-        <div className = "title"> Boba Buddy </div>
+       <Link to="/" className="title-box">
+        <div className="title"> Boba Buddy </div>
         </Link>
-        <div className = "buttons">
+        <div className="buttons">
           <Link to="/Login">
-            <Button id = "login-button" basic color='black'> Log In </Button>
+            <Button id="login-button" basic color='black'> Log In </Button>
           </Link>
-            <Button id = "signup-button" basic color='black'> Sign Up </Button>
+          <Link to="/Signup">
+            <Button id="signup-button" basic color='black'> Sign Up </Button>
+          </Link>
         </div>
        </div>
      );

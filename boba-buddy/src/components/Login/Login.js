@@ -5,22 +5,24 @@ import Header from '../Header/Header.js';
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
-
 class Login extends Component {
    render() {
      return (
        <div className="login">
         <Header />
-        <div className = "login-field">
+        <div className="login-field">
          <Form>
           <Form.Group controlId="formGroupEmail">
-           <Form.Control type="email" placeholder="Email" />
+           <FormControl type="email" placeholder="Email" />
           </Form.Group>
           <Form.Group controlId="formGroupPassword">
-           <Form.Control type="password" placeholder="Password" />
+           <FormControl type="password" placeholder="Password" />
           </Form.Group>
           </Form>
-          <Button id = "login-button"> Log In </Button>
+          <Button id="login-button"> Log In </Button>
+          <Link to="/Signup">
+            <Button basic color="black" id="signup-button"> Don't have an account? Sign up! </Button>
+          </Link>
           </div>
        </div>
      );
