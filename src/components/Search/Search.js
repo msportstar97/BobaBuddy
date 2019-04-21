@@ -63,7 +63,11 @@ class Search extends Component {
             onChange={this.handleChange} 
             value={value}/>
             </ReactGooglePlacesSuggest>
-            <Link to="/Results">
+            <Link to={{
+              pathname: "/Results",
+              state: {
+                place: value
+              }}} >
               <Button className="search-button">Search</Button>
             </Link>
           </div>
