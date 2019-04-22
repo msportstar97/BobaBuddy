@@ -1,0 +1,22 @@
+
+
+.SearchSection {
+  text-align: center;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-areas: "form button";
+  grid-template-columns: 1fr 10vw;
+}
+
+#search-button{
+  margin-left: 5%;
+}
+
+#skip-button {
+  margin-top: 50%;
+}
