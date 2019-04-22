@@ -1,16 +1,16 @@
 {
-  "main.css": "/BobaBuddy/static/css/main.4c4952da.chunk.css",
-  "main.js": "/BobaBuddy/static/js/main.dc352b00.chunk.js",
-  "main.js.map": "/BobaBuddy/static/js/main.dc352b00.chunk.js.map",
+  "main.css": "/BobaBuddy/static/css/main.79864e2d.chunk.css",
+  "main.js": "/BobaBuddy/static/js/main.d42a8abe.chunk.js",
+  "main.js.map": "/BobaBuddy/static/js/main.d42a8abe.chunk.js.map",
   "runtime~main.js": "/BobaBuddy/static/js/runtime~main.37882be2.js",
   "runtime~main.js.map": "/BobaBuddy/static/js/runtime~main.37882be2.js.map",
-  "static/css/2.c55aa136.chunk.css": "/BobaBuddy/static/css/2.c55aa136.chunk.css",
+  "static/css/2.35847de1.chunk.css": "/BobaBuddy/static/css/2.35847de1.chunk.css",
   "static/js/2.3e7190dc.chunk.js": "/BobaBuddy/static/js/2.3e7190dc.chunk.js",
   "static/js/2.3e7190dc.chunk.js.map": "/BobaBuddy/static/js/2.3e7190dc.chunk.js.map",
   "index.html": "/BobaBuddy/index.html",
-  "precache-manifest.4bb1fb0f98eff8bd1c63253e258fea64.js": "/BobaBuddy/precache-manifest.4bb1fb0f98eff8bd1c63253e258fea64.js",
+  "precache-manifest.6af6f83c74e14dff8a4c2f0d269ff31f.js": "/BobaBuddy/precache-manifest.6af6f83c74e14dff8a4c2f0d269ff31f.js",
   "service-worker.js": "/BobaBuddy/service-worker.js",
-  "static/css/2.c55aa136.chunk.css.map": "/BobaBuddy/static/css/2.c55aa136.chunk.css.map",
-  "static/css/main.4c4952da.chunk.css.map": "/BobaBuddy/static/css/main.4c4952da.chunk.css.map",
+  "static/css/2.35847de1.chunk.css.map": "/BobaBuddy/static/css/2.35847de1.chunk.css.map",
+  "static/css/main.79864e2d.chunk.css.map": "/BobaBuddy/static/css/main.79864e2d.chunk.css.map",
   "static/media/semantic.min.css": "/BobaBuddy/static/media/outline-icons.ef60a4f6.woff"
 }

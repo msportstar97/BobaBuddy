@@ -1,31 +1,31 @@
 self.__precacheManifest = [
   {
-    "revision": "faff92145777a3cbaf8e7367b4807987",
-    "url": "/BobaBuddy/static/media/icons.faff9214.woff"
+    "revision": "ab83435d9d653565c36a",
+    "url": "/BobaBuddy/static/css/main.79864e2d.chunk.css"
   },
   {
-    "revision": "3bbe2a65294383501eaa",
-    "url": "/BobaBuddy/static/css/main.4c4952da.chunk.css"
+    "revision": "ab83435d9d653565c36a",
+    "url": "/BobaBuddy/static/js/main.d42a8abe.chunk.js"
   },
   {
     "revision": "c23b9f108dbdba7eff36",
     "url": "/BobaBuddy/static/js/runtime~main.37882be2.js"
   },
   {
-    "revision": "a1a749e89f578a49306ec2b055c073da",
-    "url": "/BobaBuddy/static/media/brand-icons.a1a749e8.svg"
+    "revision": "df80ee7e13ac8b4d83a3",
+    "url": "/BobaBuddy/static/css/2.35847de1.chunk.css"
   },
   {
-    "revision": "2c286f619df7087d9e57",
+    "revision": "df80ee7e13ac8b4d83a3",
     "url": "/BobaBuddy/static/js/2.3e7190dc.chunk.js"
-  },
-  {
-    "revision": "cd6c777f1945164224dee082abaea03a",
-    "url": "/BobaBuddy/static/media/outline-icons.cd6c777f.woff2"
   },
   {
     "revision": "ef60a4f6c25ef7f39f2d25a748dbecfe",
     "url": "/BobaBuddy/static/media/outline-icons.ef60a4f6.woff"
+  },
+  {
+    "revision": "cd6c777f1945164224dee082abaea03a",
+    "url": "/BobaBuddy/static/media/outline-icons.cd6c777f.woff2"
   },
   {
     "revision": "9c74e172f87984c48ddf5c8108cabe67",
@@ -44,8 +44,8 @@ self.__precacheManifest = [
     "url": "/BobaBuddy/static/media/icons.0ab54153.woff2"
   },
   {
-    "revision": "3bbe2a65294383501eaa",
-    "url": "/BobaBuddy/static/js/main.dc352b00.chunk.js"
+    "revision": "faff92145777a3cbaf8e7367b4807987",
+    "url": "/BobaBuddy/static/media/icons.faff9214.woff"
   },
   {
     "revision": "e8c322de9658cbeb8a774b6624167c2c",
@@ -80,11 +80,11 @@ self.__precacheManifest = [
     "url": "/BobaBuddy/static/media/icons.962a1bf3.svg"
   },
   {
-    "revision": "2c286f619df7087d9e57",
-    "url": "/BobaBuddy/static/css/2.c55aa136.chunk.css"
+    "revision": "a1a749e89f578a49306ec2b055c073da",
+    "url": "/BobaBuddy/static/media/brand-icons.a1a749e8.svg"
   },
   {
-    "revision": "f4f93f399eab39b3ca0493bdb80836b1",
+    "revision": "77b2045632f8c862570b63b42d325fd4",
     "url": "/BobaBuddy/index.html"
   }
 ];
