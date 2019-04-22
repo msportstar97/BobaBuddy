@@ -1,23 +1,23 @@
 self.__precacheManifest = [
   {
-    "revision": "ab83435d9d653565c36a",
+    "revision": "036618bedcd9a31c0e29",
     "url": "/BobaBuddy/static/css/main.79864e2d.chunk.css"
   },
   {
-    "revision": "ab83435d9d653565c36a",
-    "url": "/BobaBuddy/static/js/main.d42a8abe.chunk.js"
+    "revision": "036618bedcd9a31c0e29",
+    "url": "/BobaBuddy/static/js/main.8c73d7a3.chunk.js"
   },
   {
     "revision": "c23b9f108dbdba7eff36",
     "url": "/BobaBuddy/static/js/runtime~main.37882be2.js"
   },
   {
-    "revision": "df80ee7e13ac8b4d83a3",
+    "revision": "c5009bca6a91c4c084ab",
     "url": "/BobaBuddy/static/css/2.35847de1.chunk.css"
   },
   {
-    "revision": "df80ee7e13ac8b4d83a3",
-    "url": "/BobaBuddy/static/js/2.3e7190dc.chunk.js"
+    "revision": "c5009bca6a91c4c084ab",
+    "url": "/BobaBuddy/static/js/2.df0e16e7.chunk.js"
   },
   {
     "revision": "ef60a4f6c25ef7f39f2d25a748dbecfe",
@@ -56,10 +56,6 @@ self.__precacheManifest = [
     "url": "/BobaBuddy/static/media/brand-icons.a046592b.woff"
   },
   {
-    "revision": "8e3c7f5520f5ae906c6cf6d7f3ddcd19",
-    "url": "/BobaBuddy/static/media/icons.8e3c7f55.eot"
-  },
-  {
     "revision": "b87b9ba532ace76ae9f6edfe9f72ded2",
     "url": "/BobaBuddy/static/media/icons.b87b9ba5.ttf"
   },
@@ -70,6 +66,10 @@ self.__precacheManifest = [
   {
     "revision": "c5ebe0b32dc1b5cc449a76c4204d13bb",
     "url": "/BobaBuddy/static/media/brand-icons.c5ebe0b3.ttf"
+  },
+  {
+    "revision": "8e3c7f5520f5ae906c6cf6d7f3ddcd19",
+    "url": "/BobaBuddy/static/media/icons.8e3c7f55.eot"
   },
   {
     "revision": "82f60bd0b94a1ed68b1e6e309ce2e8c3",
@@ -84,7 +84,7 @@ self.__precacheManifest = [
     "url": "/BobaBuddy/static/media/brand-icons.a1a749e8.svg"
   },
   {
-    "revision": "77b2045632f8c862570b63b42d325fd4",
+    "revision": "f720b616f9c54508cc7f05fe12d04cd8",
     "url": "/BobaBuddy/index.html"
   }
 ];
