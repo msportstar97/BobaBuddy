@@ -22,6 +22,7 @@ class Results extends Component {
 
   componentDidMount() {
     const {place} = this.props.location.state;
+
     let locUrl = `${this.geolocUrl}${place.replace(/\s/g,'+')}${this.apiKey}`;
 
     axios.get(locUrl).then((response) => {
@@ -31,7 +32,16 @@ class Results extends Component {
 
       let resUrl = `${this.searchUrl}${this.state.geo.lat},${this.state.geo.lng}&rankby=distance&keyword=boba${this.apiKey}`;
       console.log(resUrl);
-      axios.get(resUrl, { crossdomain: true }).then((response) => {
+      axios.get(resUrl, {
+        config: {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Content-Type': 'application/json',
+          }
+        }
+      }).then((response) => {
         this.setState({
           results: response.data.results
         })

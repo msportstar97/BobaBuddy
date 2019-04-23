@@ -7,7 +7,6 @@ import './SearchForDrink.scss';
 import { Link } from 'react-router-dom'
 
 class SearchForDrink extends Component {
-
   //once we get drinks database
   /*
     const stateOptions = _.map(addressDefinitions.state, (state, index) => ({
@@ -39,12 +38,19 @@ class SearchForDrink extends Component {
          selection
          options = {drinkOptions} />
          <Link to={{
-           pathname: "Results",
-           }} >
+              pathname: "/Results",
+              state: {
+                place: this.props.location.state.place
+              }}}>
            <Button className="search-button">Search</Button>
          </Link>
-
-         <Button id = "skip-button"> SKIP and show me all the boba places </Button>
+         <Link to={{
+              pathname: "/Results",
+              state: {
+                place: this.props.location.state.place 
+              }}}>
+          <Button id = "skip-button"> SKIP and show me all the boba places </Button>
+         </Link>
          </div>
       </div>
     );
