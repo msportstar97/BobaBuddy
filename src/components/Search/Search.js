@@ -12,7 +12,7 @@ class Search extends Component {
 
   constructor() {
     super();
-    
+
     this.state = {
       query: '',
       value: '',
@@ -27,7 +27,7 @@ class Search extends Component {
       query: event.target.value,
       value: event.target.value
     });
-  } 
+  }
 
   handleSelect = (event) => {
     this.setState({
@@ -35,7 +35,7 @@ class Search extends Component {
       value: event.formatted_address
     })
   }
-  
+
   render() {
     const {query, value} = this.state
     return (
@@ -58,13 +58,13 @@ class Search extends Component {
             autocompletionRequest={{input: query}}
             googleMaps={googleMaps}
             onSelectSuggest={this.handleSelect}>
-            <Input className="search-form" 
+            <Input className="search-form"
             placeholder="Search for location (address, zip code..)"
-            onChange={this.handleChange} 
+            onChange={this.handleChange}
             value={value}/>
             </ReactGooglePlacesSuggest>
             <Link to={{
-              pathname: "/Results",
+              pathname: "SearchForDrink",
               state: {
                 place: value
               }}} >
