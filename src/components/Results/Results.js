@@ -56,7 +56,7 @@ class Results extends Component {
 
    render() {
      return (
-       <div className="zresults">
+       <div className="results">
         <Header />
         <div className="cards">
           {this.state.results.map((boba, idx) =>
