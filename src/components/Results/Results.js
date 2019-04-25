@@ -30,14 +30,10 @@ class Results extends Component {
         geo: response.data.results[0].geometry.location
       })
 
-      // let resUrl = `${this.searchUrl}${this.state.geo.lat},${this.state.geo.lng}&rankby=distance&keyword=boba${this.apiKey}`;
-      // console.log(resUrl);
-
-      const placesRequest = {
+      var placesRequest = {
         location: new window.google.maps.LatLng(this.state.geo.lat, this.state.geo.lng),
-        query: '(boba) OR (bubble tea)',
-        radius: 300,
-        // rankBy: window.google.maps.places.RankBy.DISTANCE,
+        query: 'bubble tea or boba',
+        rankBy: window.google.maps.places.RankBy.DISTANCE,
       };
 
       let map = new window.google.maps.Map(document.createElement('div'));
@@ -62,7 +58,6 @@ class Results extends Component {
             <div className="bobaPlace" key={idx}>
               <p>{boba.name}</p>
               <p>Location: {boba.formatted_address}</p>
-
             </div>
           )}
 
