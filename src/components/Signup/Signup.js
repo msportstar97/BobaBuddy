@@ -1,7 +1,6 @@
 import './Signup.scss';
 import React, { Component } from 'react';
 import {Form, FormControl} from 'react-bootstrap';
-import Header from '../Header/Header.js';
 import { Button } from 'semantic-ui-react'
 import * as firebase from 'firebase';
 
@@ -88,7 +87,6 @@ class Signup extends Component {
     //  console.log('dummy', this.state.dummy);
      return (
        <div className="signup">
-        <Header />
         <div className="signup-field">
          <Form className="signup-input">
           <Form.Group controlId="formGroupEmail">

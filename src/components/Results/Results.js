@@ -1,6 +1,5 @@
 import './Results.scss';
 import React, { Component } from 'react';
-import Header from '../Header/Header.js';
 import axios from 'axios';
 // import GoogleMapReact from 'google-map-react';
 
@@ -58,7 +57,6 @@ class Results extends Component {
    render() {
      return (
        <div className="results">
-        <Header />
         <div className="cards">
           {this.state.results.map((boba, idx) =>
             <div className="bobaPlace" key={idx}>

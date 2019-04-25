@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Autosuggest from 'react-bootstrap-autosuggest';
-import Header from '../Header/Header.js';
 import { Button } from 'semantic-ui-react'
 import { Dropdown } from 'semantic-ui-react'
 import './SearchForDrink.scss';
@@ -26,7 +25,6 @@ class SearchForDrink extends Component {
     return (
 
       <div className="SearchForDrink">
-        <Header />
         <div className = "SearchSection">
          <p id = "instruction"> Search for one or more boba drinks. </p>
          <p></p>
@@ -58,3 +56,4 @@ class SearchForDrink extends Component {
 }
 
 export default SearchForDrink;
+

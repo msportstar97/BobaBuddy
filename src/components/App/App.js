@@ -4,12 +4,14 @@ import Home from '../Home/Home.js';
 import Login from '../Login/Login.js';
 import Signup from '../Signup/Signup.js';
 import Results from '../Results/Results.js';
-import SearchForDrink from '../Specific-Drink/SearchForDrink.js'
+import SearchForDrink from '../Specific-Drink/SearchForDrink.js';
+import Header from '../Header/Header.js';
 
 class App extends Component {
   render() {
     return (
       <Router basename="/">
+        <Header/>
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route exact path="/Login" component={Login}/>
