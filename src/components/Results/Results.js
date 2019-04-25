@@ -7,7 +7,7 @@ import axios from 'axios';
 class Results extends Component {
   constructor() {
     super();
-    
+
     this.state = {
       geo: {},
       results: [],
@@ -17,7 +17,7 @@ class Results extends Component {
 
     this.geolocUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
     this.searchUrl = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=';
-  
+
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
@@ -51,22 +51,22 @@ class Results extends Component {
     }).catch((error) => {
       console.log(error);
     });
-   
+
   }
 
    render() {
      return (
-       <div className="results">
+       <div className="zresults">
         <Header />
         <div className="cards">
           {this.state.results.map((boba, idx) =>
             <div className="bobaPlace" key={idx}>
               <p>{boba.name}</p>
               <p>Location: {boba.formatted_address}</p>
-              <br></br>
-              <br></br>
+
             </div>
           )}
+
         </div>
        </div>
      );
