@@ -64,7 +64,7 @@ class Search extends Component {
             value={value}/>
             </ReactGooglePlacesSuggest>
             <Link to={{
-              pathname: "SearchForDrink",
+              pathname: "/SearchForDrink",
               state: {
                 place: value
               }}} >
