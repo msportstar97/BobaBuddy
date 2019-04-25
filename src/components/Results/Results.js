@@ -36,8 +36,9 @@ class Results extends Component {
 
       const placesRequest = {
         location: new window.google.maps.LatLng(this.state.geo.lat, this.state.geo.lng),
-        query: '(bubble tea) OR (boba)',
-        radius: 50,
+        query: '(boba) OR (bubble tea)',
+        radius: 300,
+        // rankBy: window.google.maps.places.RankBy.DISTANCE,
       };
 
       let map = new window.google.maps.Map(document.createElement('div'));
