@@ -44,7 +44,11 @@ class SearchForDrink extends Component {
            <Button className="search-button">Search</Button>
          </Link>
 
+         <Link to={{
+           pathname: "Results",
+           }} >
          <Button id = "skip-button"> SKIP and show me all the boba places </Button>
+         </Link>
          </div>
       </div>
     );
