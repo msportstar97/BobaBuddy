@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Dropdown } from 'semantic-ui-react'
 import { Input } from 'semantic-ui-react'
-// import GoogleMapReact from 'google-map-react';
 
 class Results extends Component {
   constructor() {
@@ -29,7 +28,7 @@ class Results extends Component {
     const {place} = this.props.location.state;
 
     let locUrl = `${this.geolocUrl}${place.replace(/\s/g,'+')}${this.apiKey}`;
-    console.log(locUrl);
+
     axios.get(locUrl).then((response) => {
       this.setState({
         geo: response.data.results[0].geometry.location
@@ -37,14 +36,14 @@ class Results extends Component {
 
       var placesRequest = {
         location: new window.google.maps.LatLng(this.state.geo.lat, this.state.geo.lng),
-        query: 'bubble tea or boba',
+        keyword: '(bubble tea) OR (boba)',
         rankBy: window.google.maps.places.RankBy.DISTANCE,
       };
 
       let map = new window.google.maps.Map(document.createElement('div'));
       let service = new window.google.maps.places.PlacesService(map);
 
-      service.textSearch(placesRequest, ((response) => {
+      service.search(placesRequest, ((response) => {
         this.setState({
           results: response
         })
@@ -57,10 +56,32 @@ class Results extends Component {
   }
 
   handleFilter = (e) => {
+    if (e.target.value === "distance") {
+      var placesRequest = {
+        location: new window.google.maps.LatLng(this.state.geo.lat, this.state.geo.lng),
+        keyword: '(bubble tea) OR (boba)',
+        rankBy: window.google.maps.places.RankBy.DISTANCE,
+      };
 
-    if (e.target.value == "drink-rating") {
+      let map = new window.google.maps.Map(document.createElement('div'));
+      let service = new window.google.maps.places.PlacesService(map);
+
+      service.search(placesRequest, ((response) => {
+        this.setState({
+          results: response
+        })
+        console.log(this.state.results);
+      }))
+    }
+
+    if (e.target.value === "rating") {
+      this.state.results.sort((a,b) => b.rating - a.rating);
+    }
+
+    if (e.target.value === "drink-rating") {
       this.setState({showDrinkDropdown: true});
     }
+
 
   }
 
@@ -133,7 +154,7 @@ class Results extends Component {
             <div className="bobaPlace" key={idx}>
               <p>{boba.name}</p>
               <p id = "place_rating"> {boba.rating} / 5.0 </p>
-              <p>{boba.formatted_address}</p>
+              <p>{boba.vicinity}</p>
 
             </div>
           )}
