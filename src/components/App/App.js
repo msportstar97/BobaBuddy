@@ -4,6 +4,7 @@ import Home from '../Home/Home.js';
 import Login from '../Login/Login.js';
 import Signup from '../Signup/Signup.js';
 import Results from '../Results/Results.js';
+import PlaceReview from '../PlaceReview/PlaceReview.js';
 import SearchForDrink from '../Specific-Drink/SearchForDrink.js';
 import Header from '../Header/Header.js';
 
@@ -17,7 +18,7 @@ class App extends Component {
           <Route exact path="/Login" component={Login}/>
           <Route exact path="/Signup" component={Signup}/>
           <Route exact path="/Results" component={Results}/>
-          <Route exact path="/SearchForDrink" component={SearchForDrink}/>
+          <Route exact path="/PlaceReview" component={PlaceReview}/>
         </Switch>
       </Router>
     );
