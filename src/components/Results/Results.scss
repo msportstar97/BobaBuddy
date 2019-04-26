@@ -1,7 +1,23 @@
-
 .bobaPlace {
   margin: 5vw;
   padding: 3vw;
   border: 1px solid black;
   border-radius: 2vw;
+  position: relative;
+}
+
+.cards {
+  margin-top: 10vw;
+}
+
+#drink_rating {
+  position: absolute;
+  top: 1vw;
+  right: 3vw;
+}
+
+.filterDropdown {
+  position: absolute;
+  right: 3vw;
+  top: 8vw;
 }
