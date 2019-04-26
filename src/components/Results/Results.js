@@ -57,6 +57,7 @@ class Results extends Component {
 
   handleFilter = (e) => {
     if (e.target.value === "distance") {
+      this.setState({showDrinkDropdown: false});
       var placesRequest = {
         location: new window.google.maps.LatLng(this.state.geo.lat, this.state.geo.lng),
         keyword: '(bubble tea) OR (boba)',
@@ -74,8 +75,11 @@ class Results extends Component {
       }))
     }
 
+
+
     if (e.target.value === "rating") {
       this.state.results.sort((a,b) => b.rating - a.rating);
+      this.setState({showDrinkDropdown: false});
     }
 
     if (e.target.value === "drink-rating") {
@@ -89,7 +93,7 @@ class Results extends Component {
 
    render() {
 
-     const filterOptions = [
+     const drinkOptions = [
        {
          key: "peach oolong tea",
          value: "peach oolong tea",
@@ -126,7 +130,7 @@ class Results extends Component {
               fluid
               search
               selection
-              options={filterOptions}
+              options={drinkOptions}
               onChange={(e, { value }) => handleDrinkFilter(e, { value })}
             />
           </div>
@@ -155,10 +159,8 @@ class Results extends Component {
               <p>{boba.name}</p>
               <p id = "place_rating"> {boba.rating} / 5.0 </p>
               <p>{boba.vicinity}</p>
-
             </div>
           )}
-
         </div>
        </div>
      );
