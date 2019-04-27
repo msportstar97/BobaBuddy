@@ -58,8 +58,27 @@ class Results extends Component {
 
   }
 
-  handleFilter = (e) => {
-    if (e.target.value === "distance") {
+  filterOptions = [
+    {
+      key: "distance",
+      value: "distance",
+      text: "Distance"
+    },
+    {
+      key: "rating",
+      value: "rating",
+      text: "Rating"
+    },
+    {
+      key: "drink rating",
+      value: "drink rating",
+      text: "Drink Rating"
+    }
+  ]
+
+  handleFilter = (e, {value}) => {
+    console.log(value);
+    if (value === "distance") {
       this.setState({showDrinkDropdown: false});
       var placesRequest = {
         location: new window.google.maps.LatLng(this.state.geo.lat, this.state.geo.lng),
@@ -79,13 +98,12 @@ class Results extends Component {
     }
 
 
-
-    if (e.target.value === "rating") {
+    if (value === "rating") {
       this.state.results.sort((a,b) => b.rating - a.rating);
       this.setState({showDrinkDropdown: false});
     }
 
-    if (e.target.value === "drink-rating") {
+    if (value === "drink rating") {
       this.setState({showDrinkDropdown: true});
     }
 
@@ -96,6 +114,7 @@ class Results extends Component {
 
    render() {
      console.log(this.state.results)
+
 
      const drinkOptions = [
        {
@@ -145,15 +164,17 @@ class Results extends Component {
 
 
 
+
      return (
        <div className="results">
-        <div className = "filterDropdown">
+        <div className = "filterDropdown" style = {{zIndex: 1}}>
           <span> Sort By </span>
-            <select className = "order-select" onChange={(e) => this.handleFilter(e)}>
-              <option value="distance">Distance</option>
-              <option value="rating">Rating</option>
-              <option value="drink-rating">Drink Rating</option>
-            </select>
+            <Dropdown className = "order-select" onChange={(e, {value}) => this.handleFilter(e, { value })}
+            placeholder={this.state.filterOption}
+            fluid
+            selection
+            options={this.filterOptions} />
+
             { this.state.showDrinkDropdown ? <DrinkDropdown /> : null }
         </div>
 
