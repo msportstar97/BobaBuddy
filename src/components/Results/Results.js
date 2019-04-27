@@ -1,9 +1,10 @@
 import './Results.scss';
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Dropdown } from 'semantic-ui-react'
-import { Input } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Dropdown } from 'semantic-ui-react';
+import { Input } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import StarRatings from 'react-star-ratings';
 
 class Results extends Component {
   constructor() {
@@ -73,7 +74,7 @@ class Results extends Component {
         this.setState({
           results: response
         })
-        console.log(this.state.results);
+        //console.log(this.state.results);
       }))
     }
 
@@ -162,10 +163,18 @@ class Results extends Component {
               pathname: "/PlaceReview",
               state: {
                 place: boba
-              }}} >
+              }}}  >
             <div className="bobaPlace" key={idx}>
-              <p>{boba.name}</p>
-              <p id = "place_rating"> {boba.rating} / 5.0 </p>
+              <p id = "drink_name">{boba.name}</p>
+              <span id = "place_rating"> {boba.rating} / 5.0
+              </span>
+              <StarRatings
+                rating={boba.rating}
+                starDimension="15px"
+                starSpacing="2px"
+                starRatedColor="#6FB59B"
+                starEmptyColor = "#D9D9D9"
+              />
               <p>{boba.vicinity}</p>
             </div>
             </Link>

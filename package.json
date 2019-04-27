@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@dr-kobros/react-webfont-loader": "^8.0.0",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "cors": "^2.8.5",
@@ -21,8 +22,11 @@
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
+    "react-star-ratings": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.86.0"
+    "semantic-ui-react": "^0.86.0",
+    "typeface-gugi": "0.0.61",
+    "webfontloader": "^1.6.28"
   },
   "scripts": {
     "predeploy": "npm run build",

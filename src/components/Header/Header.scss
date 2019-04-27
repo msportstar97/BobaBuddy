@@ -1,4 +1,5 @@
 $font: 2vw;
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
 
 .Header {
   width: 100%;
@@ -14,9 +15,11 @@ $font: 2vw;
   }
 
   .title {
+    font-family: 'Josefin Sans', cursive;
     grid-area: title;
     font-size: $font;
     margin-left: 5vw;
+    color: black;
   }
 
   .buttons {

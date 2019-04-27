@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'semantic-ui-css/semantic.min.css';
 import * as firebase from 'firebase';
+import 'typeface-gugi';
 
 var config = {
     apiKey: "AIzaSyBeSlCn1ILfNQBg975d47IqsmavBAJRaKc",
@@ -16,6 +17,7 @@ var config = {
     messagingSenderId: "257965645347"
   };
 
+//require('typeface-gugi');
 firebase.initializeApp(config);
 
 ReactDOM.render(<App />, document.getElementById('root'));
