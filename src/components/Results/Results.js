@@ -2,9 +2,15 @@ import './Results.scss';
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Dropdown } from 'semantic-ui-react';
-import { Input } from 'semantic-ui-react';
+import { Input, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
+import Search from '../Search/Search.js';
+import ReactGoogleMapLoader from "react-google-maps-loader";
+import ReactGooglePlacesSuggest from "react-google-places-suggest";
+import propTypes from "prop-types";
+
+const API_KEY = "AIzaSyDFtzabY5k6-NOC6V1h3b-LjftEvZyW2MY";
 
 class Results extends Component {
   constructor() {
@@ -13,9 +19,11 @@ class Results extends Component {
     this.state = {
       geo: {},
       results: [],
-      filterOption: "distance",
+      filterOption: "Sort By Distance",
       showDrinkDropdown: false,
-      drinkFilterOption: ""
+      drinkFilterOption: "",
+      query: '',
+      value: '',
     }
 
     this.apiKey = '&key=AIzaSyDFtzabY5k6-NOC6V1h3b-LjftEvZyW2MY';
@@ -62,17 +70,17 @@ class Results extends Component {
     {
       key: "distance",
       value: "distance",
-      text: "Distance"
+      text: "Sort By Distance"
     },
     {
       key: "rating",
       value: "rating",
-      text: "Rating"
+      text: "Sort By Rating"
     },
     {
       key: "drink rating",
       value: "drink rating",
-      text: "Drink Rating"
+      text: "Sort By Drink Rating"
     }
   ]
 
@@ -113,8 +121,8 @@ class Results extends Component {
 
 
    render() {
-     console.log(this.state.results)
-
+     //console.log(this.state.results)
+     const {query, value} = this.state
 
      const drinkOptions = [
        {
@@ -139,8 +147,6 @@ class Results extends Component {
        console.log({value})
      }
 
-
-
       var createReactClass = require('create-react-class');
 
 
@@ -149,7 +155,7 @@ class Results extends Component {
         return (
           <div id="results" className="search-results">
             <Dropdown
-              placeholder='Select Drink'
+              placeholder='Search for Drink'
               fluid
               search
               selection
@@ -167,16 +173,44 @@ class Results extends Component {
 
      return (
        <div className="results">
-        <div className = "filterDropdown" style = {{zIndex: 1}}>
-          <span> Sort By </span>
-            <Dropdown className = "order-select" onChange={(e, {value}) => this.handleFilter(e, { value })}
-            placeholder={this.state.filterOption}
-            fluid
-            selection
-            options={this.filterOptions} />
+        <div className = "top">
+           <div className="searchAgain">
 
-            { this.state.showDrinkDropdown ? <DrinkDropdown /> : null }
-        </div>
+             <ReactGoogleMapLoader
+             params={{key: API_KEY,
+             libraries: "places,geocode"}}
+             render={googleMaps => googleMaps && (
+               <div className="search-bar">
+                 <ReactGooglePlacesSuggest
+                 autocompletionRequest={{input: query}}
+                 googleMaps={googleMaps}
+                 onSelectSuggest={this.handleSelect}>
+                 <Input className="search-form"
+                 placeholder="Search for location (address, zip code..)"
+                 onChange={this.handleChange}
+                 value={value}/>
+                 </ReactGooglePlacesSuggest>
+                 <Link to={{
+                   pathname: "/Results",
+                   state: {
+                     place: value
+                   }}} >
+                   <Button className="search-button">Search</Button>
+                 </Link>
+               </div>
+             )}>
+             </ReactGoogleMapLoader>
+           </div>
+            <div className = "filterDropdown" style = {{zIndex: 1}}>
+                <Dropdown className = "order-select" onChange={(e, {value}) => this.handleFilter(e, { value })}
+                placeholder={this.state.filterOption}
+                fluid
+                selection
+                options={this.filterOptions} />
+
+                { this.state.showDrinkDropdown ? <DrinkDropdown /> : null }
+            </div>
+          </div>
 
         <div className="cards">
           {this.state.results.map((boba, idx) =>
@@ -186,9 +220,9 @@ class Results extends Component {
                 place: boba
               }}}  >
             <div className="bobaPlace" key={idx}>
-              <p id = "drink_name">{boba.name}</p>
-              <span id = "place_rating"> {boba.rating} / 5.0
-              </span>
+              <p id = "place_name"> {boba.name} </p>
+              <p>{boba.vicinity}</p>
+              <span id = "place_rating"> {boba.rating} / 5.0 </span>
               <StarRatings
                 rating={boba.rating}
                 starDimension="15px"
@@ -196,7 +230,6 @@ class Results extends Component {
                 starRatedColor="#6FB59B"
                 starEmptyColor = "#D9D9D9"
               />
-              <p>{boba.vicinity}</p>
             </div>
             </Link>
           )}

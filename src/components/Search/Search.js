@@ -40,15 +40,7 @@ class Search extends Component {
     const {query, value} = this.state
     return (
       <div className="search">
-        <p className="intro">
-          Looking for a boba place?
-          <br></br>
-          Have no idea what to get at a boba shop?
-          <br></br>
-          Want to leave a review for specific boba at a place?
-          <br></br>
-          Search for a place to find boba places nearby. Login to leave reviews.
-        </p>
+
         <ReactGoogleMapLoader
         params={{key: API_KEY,
         libraries: "places,geocode"}}
