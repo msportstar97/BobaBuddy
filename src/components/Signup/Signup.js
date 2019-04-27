@@ -25,39 +25,25 @@ class Signup extends Component {
       
   }
 
-
-
-  // componentDidMount() {
-  //   const rootRef = firebase.database().ref();
-  //   const usersRef = rootRef.child('users');
-  // //   usersRef.push ({
-  // //     name: "John",
-  // //     number: 1,
-  // //     age: 30
-  // //  });
-  // usersRef.on('value', snap=> {
-  //     this.setState({
-  //       dummy: snap.val()
-  //     });
-  //   });
-  // }
-
   signup() {
     console.log('let\'s do some firebase');
-    var ref = firebase.database().ref('users');
     
     var email = this.state.email;
+    var password = this.state.password;
     var confirmPassword = this.state.confirmPassword;
+    const auth = firebase.auth();
 
-    if (email !== '' && this.state.password !== '' && confirmPassword !== '' 
-      && this.state.password === confirmPassword) {
+    if (email !== '' && password !== '' && confirmPassword !== '' 
+      && password === confirmPassword) {
       // ref.push({
       //   name: email,
       //   password: password
       // });
-      ref.child(email).set ({
-        password: this.state.password,
-     });
+      
+        const promise = auth.createUserWithEmailAndPassword(email, password);
+        promise
+            .then(console.log("user created"))
+            .catch(e=>console.log(e.message));
       
     } else {
       console.log('invalid email/password');
