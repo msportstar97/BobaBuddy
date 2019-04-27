@@ -1,11 +1,29 @@
 .bobaPlace {
   margin: 5vw;
   padding: 3vw;
-  border: 1px solid black;
+  border: 1px solid #D9D9D9;
   border-radius: 2vw;
   position: relative;
   color: black;
 }
+
+.top {
+  top: 2vw;
+  position: relative;
+  z-index: 2;
+}
+
+.filterDropdown {
+  width: 20%;
+
+}
+
+.searchAgain {
+  left: auto;
+  right: auto;
+  width: 40%;
+}
+
 
 .cards {
   margin-top: 10vw;
@@ -16,12 +34,7 @@
   top: 1vw;
   right: 3vw;
 }
-#drink_name {
-  font-size: 3vw;
-}
 
-.filterDropdown {
-  position: absolute;
-  right: 3vw;
-  top: 8vw;
+#place_name {
+  font-size: 20px;
 }
