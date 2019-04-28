@@ -31,7 +31,10 @@ class Signup extends Component {
     var email = this.state.email;
     var password = this.state.password;
     var confirmPassword = this.state.confirmPassword;
+      
     const auth = firebase.auth();
+    const ref = firebase.database().ref('users');
+    
 
     if (email !== '' && password !== '' && confirmPassword !== '' 
       && password === confirmPassword) {
@@ -44,6 +47,17 @@ class Signup extends Component {
         promise
             .then(console.log("user created"))
             .catch(e=>console.log(e.message));
+        
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // User logged in already or has just logged in.
+                console.log("created user uid in database", user.uid);
+                ref.child(user.uid).set({
+                    email: email,
+                    reviews: ["init"] 
+                });
+            } 
+        });
       
     } else {
       console.log('invalid email/password');
