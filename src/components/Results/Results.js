@@ -169,7 +169,7 @@ class Results extends Component {
 
 
 
-
+    console.log('results', this.state.results);
 
      return (
        <div className="results">
