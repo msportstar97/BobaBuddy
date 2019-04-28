@@ -20,6 +20,7 @@ class PlaceReview extends Component {
 
     this.handleMenu = this.handleMenu.bind(this);
     this.makeFakeDrinks = this.makeFakeDrinks.bind(this);
+    this.makeAFakeDrink = this.makeAFakeDrink.bind(this);
   }
 
   componentDidMount() {
@@ -29,83 +30,89 @@ class PlaceReview extends Component {
     const placesRef = rootRef.child('places');
     const place = this.props.location.state.place;
 
+    // create a new id for firebase
     var newPlaceRef = placesRef.push();
-    // console.log('newplaceref', newPlaceRef);
+    // add our prefix to the id
     const ourPlaceId = "PLC" + newPlaceRef.key;
 
+    // create fake drinks with our id and return an array of drink objIds
+    const fakeDrinks = this.makeFakeDrinks('testPlace');
+    
+    // create new place object
     var newPlace = {
       name: place.name,
       placeId: place.id,
+      drinks: fakeDrinks
     }
 
+    // send new place object to firebase 
     placesRef.child(ourPlaceId).set(newPlace);
 
-    // newPlaceRef.set(newPlace);
-
-    // placesRef.child('testPlace').set ({
-    //     name: place.name,
-    //     placeId: place.id,
-    // });
-    this.makeFakeDrinks('testPlace');
-
+    // view firebase db
     rootRef.on('value', snap=> {
           this.setState({
             dummy: snap.val()
           });
       });
-    
-    //if firebase does not have our place 
-
-  //   
-  //   const usersRef = rootRef.child('users');
-  // //   usersRef.push ({
-  // //     name: "John",
-  // //     number: 1,
-  // //     age: 30
-  // //  });
-  
-
-
-
-
-    // this.setState({
-    //   place: this.props.location.state.place,
-    // });
   }
 
   makeFakeDrinks(inPlaceId) {
-    var placeId = {inPlaceId}
-    var drinkRef = firebase.database().ref("drinks")
+    var fakeDrinksObjIds = [];
+
+    var placeId = {inPlaceId};
+    var drinksRef = firebase.database().ref("drinks");
+
+    // var newDrinkRef = drinksRef.push();
+    // const ourDrinkId = "DRK" + newDrinkRef.key;
+
+    // var oolong = {
+    //     name: "Oolong Milk Tea",
+    //     price: 3.29,
+    //     place: placeId,
+    //     reviews: ["init"]
+    // }
+
+    // drinksRef.child(ourDrinkId).set(oolong);
 
     var oolong = {
-        name: "Oolong Milk Tea",
-        price: 3.25,
-        place: placeId,
-        ratings: ["init"]
-    }
+            name: "Oolong Milk Tea",
+            price: 3.29,
+            place: placeId,
+            reviews: ["init"]
+    };
     var classic = {
-        name: "Classic Milk Tea",
-        price: 3.25,
-        place: placeId,
-        ratings: ["init"]
-    }
+          name: "Classic Milk Tea",
+          price: 3.29,
+          place: placeId,
+          reviews: ["init"]
+    };
     var taro = {
         name: "Taro Milk Tea",
-        price: 4.25,
+        price: 4.29,
         place: placeId,
-        ratings: ["init"]
-    }
+        reviews: ["init"]
+    };
     var green = {
         name: "Green Milk Tea",
         price: 3.50,
         place: placeId,
-        ratings: ["init"]
-    }
+        reviews: ["init"]
+    };
 
-    drinkRef.push(oolong);
-    drinkRef.push(classic);
-    drinkRef.push(taro);
-    drinkRef.push(green);
+    fakeDrinksObjIds.push(this.makeAFakeDrink(oolong, drinksRef));
+    fakeDrinksObjIds.push(this.makeAFakeDrink(classic, drinksRef));
+    fakeDrinksObjIds.push(this.makeAFakeDrink(taro, drinksRef));
+    fakeDrinksObjIds.push(this.makeAFakeDrink(green, drinksRef));
+
+    return fakeDrinksObjIds;
+  }
+
+  makeAFakeDrink(drink, drinksRef) {
+    var newDrinkRef = drinksRef.push();
+    const ourDrinkId = "DRK" + newDrinkRef.key;
+
+    drinksRef.child(ourDrinkId).set(drink);
+    return {ourDrinkId};
   }
 
   handleMenu = (e) => {
