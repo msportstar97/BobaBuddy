@@ -40,6 +40,9 @@ $font: 2.5vw;
   }
 
   .username{
-        
+    grid-area: buttons;
+    align-self: center;
+    margin-left: 60%;
+    font-family: 'Josefin Sans', cursive;
   }
 }

@@ -30,12 +30,16 @@ class Header extends Component {
   render() {
     const loggedIn = this.props.loggedIn;
     let button;
+    let hello;
     if (loggedIn) {
       button = <div className="buttons">
                 <Link to="/">
                   <Icon id="signout-button" link name='sign out' size='big' onClick={() => this.signout()}/>
                 </Link>
                </div>
+      hello = <div className="username">
+              Hello, {firebase.auth().currentUser.email}! 
+              </div>
     } else {
       button = <div className="buttons">
                 <Link to="/Login">
@@ -52,8 +56,7 @@ class Header extends Component {
           <img src={require('./logo.png')} className="logo"></img>
           <div className="title"> Boba Buddy </div>
         </Link>
-      <div className="username">
-        </div>
+        {hello}
         {button}
       </div>
      );
