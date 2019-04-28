@@ -5,6 +5,7 @@ import Login from '../Login/Login.js';
 import Signup from '../Signup/Signup.js';
 import Results from '../Results/Results.js';
 import PlaceReview from '../PlaceReview/PlaceReview.js';
+import WriteReview from '../WriteReview/WriteReview.js';
 import SearchForDrink from '../Specific-Drink/SearchForDrink.js';
 import Header from '../Header/Header.js';
 
@@ -19,6 +20,7 @@ class App extends Component {
           <Route exact path="/Signup" component={Signup}/>
           <Route exact path="/Results" component={Results}/>
           <Route exact path="/PlaceReview" component={PlaceReview}/>
+          <Route exact path="/WriteReview" component={WriteReview}/>
         </Switch>
       </Router>
     );

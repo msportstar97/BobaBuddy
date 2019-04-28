@@ -67,7 +67,13 @@ class PlaceReview extends Component {
         <div className = "placeInfo">
           <p> {place.name} </p>
           <p> {place.rating} </p>
-          <Button> Leave a Review </Button>
+          <Link to={{
+            pathname: "/WriteReview",
+            state: {
+              place: place
+            }}} >
+            <Button> Leave a Review </Button>
+          </Link>
         </div>
 
         <div className = "menuInfo">
