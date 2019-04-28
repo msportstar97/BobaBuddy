@@ -10,14 +10,9 @@ class Header extends Component {
 
     var user = firebase.auth().currentUser;
 
-    this.state = {
-      loggedIn: false
-    };
-
     if (user){
-      this.setState({
-        loggedIn: true
-      });
+      this.props.updatelogin(true)
+
     }
 
     this.signout = this.signout.bind(this);
@@ -29,13 +24,11 @@ class Header extends Component {
       firebase.auth().signOut();
       console.log("Signing out user");
     }
-    this.setState({
-      loggedIn: false
-    });
+    this.props.updatelogin(false);
    }
     
   render() {
-    const loggedIn = this.state.loggedIn;
+    const loggedIn = this.props.loggedIn;
     let button;
     if (loggedIn) {
       button = <div className="buttons">

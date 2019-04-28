@@ -32,7 +32,7 @@ class Login extends Component {
       
         const promise = auth.signInWithEmailAndPassword(email, password);
         promise
-            .then(console.log("user signed in"))
+            .then(this.props.updatelogin(true))
             .catch(e=>console.log(e.message));
       
     } else {

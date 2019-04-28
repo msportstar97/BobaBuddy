@@ -7,7 +7,7 @@ $font: 2.5vw;
   display: grid;
   grid-template-areas: "titleBox buttons";
   grid-template-columns: 30vw 1fr;
-  height: 10vh;
+  height: 8vh;
 
   .title-box {
     text-decoration: none;
@@ -15,12 +15,12 @@ $font: 2.5vw;
     grid-area: titleBox;
     display: grid;
     grid-template-areas: "logo title";
-    grid-template-columns: 7vw 1fr;
+    grid-template-columns: 8vw 1fr;
   }
 
   .logo {
-    width: 3vw;
-    height: 10vh;
+    width: 5vw;
+    height: 8vh;
     margin-left: 3vw;
     padding-top: 1vh;
     padding-bottom: 1vh;
