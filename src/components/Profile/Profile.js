@@ -9,8 +9,16 @@ class Profile extends Component {
 
   render() {
     return (
-      <div>
-        <p> hi </p>
+      <div className="profileComponent">
+        <h2 className="profileTitle"> Your Profile </h2>
+        <div className="yourProfile">
+          <p>Email: {firebase.auth().currentUser.email}</p>
+          <Button basic color="black" id="edit-password"> Edit Password </Button>
+        </div>
+        <h2 className="profileTitle"> Your Reviews </h2>
+        <div className="yourReviews">
+        
+        </div>
       </div>
     );
   }
