@@ -2,6 +2,7 @@ import './Signup.scss';
 import React, { Component } from 'react';
 import {Form, FormControl} from 'react-bootstrap';
 import { Button } from 'semantic-ui-react'
+import { Redirect } from 'react-router-dom'
 import * as firebase from 'firebase';
 
 // misterred250@gmail.com
@@ -14,11 +15,13 @@ class Signup extends Component {
         dummy: 'hello world',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        redirect: false
       }
 
 
       this.signup = this.signup.bind(this);
+      this.handlelogin = this.handlelogin.bind(this);
       this.handleChangeEmail = this.handleChangeEmail.bind(this);
       this.handleChangePassword = this.handleChangePassword.bind(this);
       this.handleChangeConfirmPassword = this.handleChangeConfirmPassword.bind(this);
@@ -31,7 +34,10 @@ class Signup extends Component {
     var email = this.state.email;
     var password = this.state.password;
     var confirmPassword = this.state.confirmPassword;
+      
     const auth = firebase.auth();
+    const ref = firebase.database().ref('users');
+    
 
     if (email !== '' && password !== '' && confirmPassword !== '' 
       && password === confirmPassword) {
@@ -42,13 +48,31 @@ class Signup extends Component {
       
         const promise = auth.createUserWithEmailAndPassword(email, password);
         promise
-            .then(console.log("user created"))
+            .then(this.handlelogin())
             .catch(e=>console.log(e.message));
+        
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // User logged in already or has just logged in.
+                console.log("created user uid in database", user.uid);
+                ref.child(user.uid).set({
+                    email: email,
+                    reviews: ["init"] 
+                });
+            } 
+        });
       
     } else {
       console.log('invalid email/password');
     }
 
+  }
+
+  handlelogin() {
+    this.props.updatelogin(true);
+    this.setState({
+      redirect: true
+    });
   }
 
   handleChangeEmail(e) {
@@ -70,8 +94,12 @@ class Signup extends Component {
   }
 
    render() {
-    //  console.log('dummy', this.state.dummy);
-     return (
+    if (this.state.redirect) {
+      return (
+        <Redirect to='/Profile'/>
+      )
+    }
+    return (
        <div className="signup">
         <div className="signup-field">
          <Form className="signup-input">

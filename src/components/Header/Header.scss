@@ -1,24 +1,35 @@
-$font: 4vw;
+$font: 2.5vw;
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
 
 .Header {
   width: 100%;
-  background-color: #C7EBDE;
+  background-color: #c7e9eb;
   display: grid;
-  grid-template-areas: "title buttons";
-  grid-template-columns: 20vw 1fr;
+  grid-template-areas: "titleBox buttons";
+  grid-template-columns: 30vw 1fr;
   height: 8vh;
 
   .title-box {
     text-decoration: none;
     align-self: center;
+    grid-area: titleBox;
+    display: grid;
+    grid-template-areas: "logo title";
+    grid-template-columns: 8vw 1fr;
+  }
+
+  .logo {
+    width: 5vw;
+    height: 8vh;
+    margin-left: 3vw;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
   }
 
   .title {
     font-family: 'Josefin Sans', cursive;
-    grid-area: title;
+    align-self: center;
     font-size: $font;
-    margin-left: 5vw;
     color: black;
   }
 
@@ -29,6 +40,9 @@ $font: 4vw;
   }
 
   .username{
-        
+    grid-area: buttons;
+    align-self: center;
+    margin-left: 60%;
+    font-family: 'Josefin Sans', cursive;
   }
 }
