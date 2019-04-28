@@ -2,7 +2,7 @@ import './Login.scss';
 import React, { Component } from 'react';
 import {Form, FormControl} from 'react-bootstrap';
 import { Button } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import * as firebase from 'firebase';
 
 class Login extends Component {
@@ -11,10 +11,12 @@ class Login extends Component {
        
        this.state = {
            email: '',
-           password: ''
+           password: '',
+           redirect: false
        }
        
        this.login = this.login.bind(this);
+       this.handlelogin = this.handlelogin.bind(this);
        this.handleChangeEmail = this.handleChangeEmail.bind(this);
        this.handleChangePassword = this.handleChangePassword.bind(this);
    }
@@ -32,12 +34,19 @@ class Login extends Component {
       
         const promise = auth.signInWithEmailAndPassword(email, password);
         promise
-            .then(this.props.updatelogin(true))
+            .then(this.handlelogin())
             .catch(e=>console.log(e.message));
       
     } else {
       console.log('invalid email/password');
     }
+  }
+
+  handlelogin() {
+    this.props.updatelogin(true);
+    this.setState({
+      redirect: true
+    });
   }
     
   handleChangeEmail(e) {
@@ -53,6 +62,11 @@ class Login extends Component {
   }
     
    render() {
+     if (this.state.redirect) {
+       return (
+         <Redirect to='/Profile'/>
+       )
+     }
      return (
        <div className="login">
         <div className="login-field">
