@@ -1,16 +1,18 @@
 {
-  "main.css": "/BobaBuddy/static/css/main.457f3e7f.chunk.css",
-  "main.js": "/BobaBuddy/static/js/main.a86000c7.chunk.js",
-  "main.js.map": "/BobaBuddy/static/js/main.a86000c7.chunk.js.map",
+  "main.css": "/BobaBuddy/static/css/main.e84ffcf4.chunk.css",
+  "main.js": "/BobaBuddy/static/js/main.ed2cb752.chunk.js",
+  "main.js.map": "/BobaBuddy/static/js/main.ed2cb752.chunk.js.map",
   "runtime~main.js": "/BobaBuddy/static/js/runtime~main.37882be2.js",
   "runtime~main.js.map": "/BobaBuddy/static/js/runtime~main.37882be2.js.map",
-  "static/css/2.79fb8503.chunk.css": "/BobaBuddy/static/css/2.79fb8503.chunk.css",
-  "static/js/2.f8c1b7dd.chunk.js": "/BobaBuddy/static/js/2.f8c1b7dd.chunk.js",
-  "static/js/2.f8c1b7dd.chunk.js.map": "/BobaBuddy/static/js/2.f8c1b7dd.chunk.js.map",
+  "static/css/2.296d7143.chunk.css": "/BobaBuddy/static/css/2.296d7143.chunk.css",
+  "static/js/2.aa45ff6a.chunk.js": "/BobaBuddy/static/js/2.aa45ff6a.chunk.js",
+  "static/js/2.aa45ff6a.chunk.js.map": "/BobaBuddy/static/js/2.aa45ff6a.chunk.js.map",
   "index.html": "/BobaBuddy/index.html",
-  "precache-manifest.c758fe6e13ef1a98bac4d0c2781f1089.js": "/BobaBuddy/precache-manifest.c758fe6e13ef1a98bac4d0c2781f1089.js",
+  "precache-manifest.dc4fcd712882343d5d813d47dc9a7041.js": "/BobaBuddy/precache-manifest.dc4fcd712882343d5d813d47dc9a7041.js",
   "service-worker.js": "/BobaBuddy/service-worker.js",
-  "static/css/2.79fb8503.chunk.css.map": "/BobaBuddy/static/css/2.79fb8503.chunk.css.map",
-  "static/css/main.457f3e7f.chunk.css.map": "/BobaBuddy/static/css/main.457f3e7f.chunk.css.map",
-  "static/media/semantic.min.css": "/BobaBuddy/static/media/outline-icons.ef60a4f6.woff"
+  "static/css/2.296d7143.chunk.css.map": "/BobaBuddy/static/css/2.296d7143.chunk.css.map",
+  "static/css/main.e84ffcf4.chunk.css.map": "/BobaBuddy/static/css/main.e84ffcf4.chunk.css.map",
+  "static/media/semantic.min.css": "/BobaBuddy/static/media/outline-icons.ef60a4f6.woff",
+  "static/media/index.css": "/BobaBuddy/static/media/gugi-latin-400.a72ad844.woff2",
+  "static/media/logo.png": "/BobaBuddy/static/media/logo.31605d4f.png"
 }
