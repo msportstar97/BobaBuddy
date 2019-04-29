@@ -230,7 +230,8 @@ class Results extends Component {
                     <Link to={{
                       pathname: "/PlaceReview",
                       state: {
-                        place: boba
+                        place: boba,
+                        search: value
                       }}} key={idx} >
                     <div className="bobaPlace">
                       <p id = "place_name"> {boba.name} </p>

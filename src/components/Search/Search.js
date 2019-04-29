@@ -5,6 +5,7 @@ import ReactGoogleMapLoader from "react-google-maps-loader"
 import ReactGooglePlacesSuggest from "react-google-places-suggest"
 import propTypes from "prop-types";
 import { Link } from 'react-router-dom'
+import * as firebase from 'firebase';
 
 const API_KEY = "AIzaSyDFtzabY5k6-NOC6V1h3b-LjftEvZyW2MY";
 
