@@ -18,6 +18,7 @@ class PlaceReview extends Component {
       selectedMenu: "",
       dummy: {},
       ourId: '',
+      drinkArr: []
     }
 
     this.handleMenu = this.handleMenu.bind(this);
@@ -175,9 +176,22 @@ class PlaceReview extends Component {
     this.setState({showMenuList: true});
   }
 
+  mapDrinks() {
+    if (this.state.dummy.drinks == undefined) {
+      return <li> no menu </li>
+    }
+    else {
+      this.state.dummy.map(function(item, i) {
+        console.log("test")
+      })
+      return <li> Test </li>
+    }
+  }
+
 
   render() {
     console.log('dummy', this.state.dummy);
+    console.log('dummy', this.state.dummy.drinks);
     const {place} = this.props.location.state;
 
     var createReactClass = require('create-react-class');
