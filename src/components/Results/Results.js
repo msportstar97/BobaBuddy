@@ -220,6 +220,35 @@ class Results extends Component {
 
     // console.log('results', this.state.results);
 
+    let cardView;
+
+    if (this.state.results.length === 0) {
+      cardView = <p className="noResults"> Sorry, there are no boba places from this search </p>;
+    } else { 
+      cardView = <div className="cards">
+                  {this.state.results.map((boba, idx) =>
+                    <Link to={{
+                      pathname: "/PlaceReview",
+                      state: {
+                        place: boba
+                      }}} key={idx} >
+                    <div className="bobaPlace">
+                      <p id = "place_name"> {boba.name} </p>
+                      <p>{boba.vicinity}</p>
+                      <span id = "place_rating"> {boba.rating} / 5.0 </span>
+                      <StarRatings
+                        rating={boba.rating}
+                        starDimension="15px"
+                        starSpacing="2px"
+                        starRatedColor="#6FB59B"
+                        starEmptyColor = "#D9D9D9"
+                      />
+                    </div>
+                    </Link>
+                  )}
+                </div>;
+    }
+
      return (
        <div className="results">
         <div className = "top">
@@ -229,12 +258,12 @@ class Results extends Component {
              params={{key: API_KEY,
              libraries: "places,geocode"}}
              render={googleMaps => googleMaps && (
-               <div className="search-bar">
+               <div className="searchAgainBar">
                  <ReactGooglePlacesSuggest
                  autocompletionRequest={{input: query}}
                  googleMaps={googleMaps}
                  onSelectSuggest={this.handleSelect}>
-                 <Input className="search-form"
+                 <Input className="searchAgainForm"
                  placeholder="Search for location (address, zip code..)"
                  onChange={this.handleChange}
                  value={value}/>
@@ -244,14 +273,14 @@ class Results extends Component {
                    state: {
                      place: value
                    }}} >
-                   <Button className="search-button">Search</Button>
+                   <Button className="searchAgainButton">Search</Button>
                  </Link>
                </div>
              )}>
              </ReactGoogleMapLoader>
            </div>
-            <div className = "filterDropdown" style = {{zIndex: 1}}>
-                <Dropdown className = "order-select" onChange={(e, {value}) => this.handleFilter(e, { value })}
+            <div className="filterDropdown" style = {{zIndex: 1}}>
+                <Dropdown className="order-select" onChange={(e, {value}) => this.handleFilter(e, { value })}
                 placeholder={this.state.filterOption}
                 fluid
                 selection
@@ -260,29 +289,7 @@ class Results extends Component {
                 { this.state.showDrinkDropdown ? <DrinkDropdown /> : null }
             </div>
           </div>
-
-        <div className="cards">
-          {this.state.results.map((boba, idx) =>
-            <Link to={{
-              pathname: "/PlaceReview",
-              state: {
-                place: boba
-              }}} key={idx} >
-            <div className="bobaPlace">
-              <p id = "place_name"> {boba.name} </p>
-              <p>{boba.vicinity}</p>
-              <span id = "place_rating"> {boba.rating} / 5.0 </span>
-              <StarRatings
-                rating={boba.rating}
-                starDimension="15px"
-                starSpacing="2px"
-                starRatedColor="#6FB59B"
-                starEmptyColor = "#D9D9D9"
-              />
-            </div>
-            </Link>
-          )}
-        </div>
+        {cardView}
        </div>
      );
    }
