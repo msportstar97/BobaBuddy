@@ -12,11 +12,13 @@ class Login extends Component {
        this.state = {
            email: '',
            password: '',
-           redirect: false
+           redirect: false,
+           message: '',
        }
        
        this.login = this.login.bind(this);
        this.handlelogin = this.handlelogin.bind(this);
+       this.handleError = this.handleError.bind(this);
        this.handleChangeEmail = this.handleChangeEmail.bind(this);
        this.handleChangePassword = this.handleChangePassword.bind(this);
    }
@@ -40,7 +42,7 @@ class Login extends Component {
             .catch(e=>console.log(e.message));
       
     } else {
-      console.log('invalid email/password');
+      this.handleError('invalid email/password');
     }
   }
 
@@ -49,6 +51,12 @@ class Login extends Component {
     this.setState({
       redirect: true
     });
+  }
+
+  handleError(message) {
+    this.setState({
+      message: message
+    })
   }
     
   handleChangeEmail(e) {
@@ -69,9 +77,14 @@ class Login extends Component {
          <Redirect to='/Profile'/>
        )
      }
+     let errorMessage = <p></p>
+     if (this.state.message) {
+        errorMessage = <p className="errorMessage"> {this.state.message} </p>
+     }
      return (
        <div className="login">
         <div className="login-field">
+        {errorMessage}
          <Form>
           <Form.Group controlId="formGroupEmail">
            <FormControl type="email" onChange={this.handleChangeEmail} placeholder="Email" />
