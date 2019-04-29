@@ -176,17 +176,55 @@ class PlaceReview extends Component {
     this.setState({showMenuList: true});
   }
 
-  mapDrinks() {
-    if (this.state.dummy.drinks == undefined) {
+mapDrinks() {
+  if (this.state.dummy == undefined || this.state.dummy == null) {
       return <li> no menu </li>
-    }
-    else {
-      this.state.dummy.map(function(item, i) {
-        console.log("test")
-      })
-      return <li> Test </li>
-    }
   }
+  else {
+    let drinkArr = this.state.dummy.drinks;
+    let buffer = []
+    for (var key in drinkArr) {
+          buffer.push(<Button className = "singleMenu"> {drinkArr[key].name} </Button>);
+    //     }
+    // console.log(Object.keys(this.state.dummy.drinks))
+    //   return Object.keys(this.state.dummy.drinks).map((key, index) =>
+    //       <Button value = {key} onClick = {(e) => this.handleMenu(e)} className = "singleMenu">
+    //       {this.state.dummy.drinks[key].name} </Button>
+    //     );
+    //   return <li> no menu </li>
+    }
+    return buffer;
+  }
+}
+  // mapDrinks() {
+  //   if (this.state.dummy == undefined) {
+  //     return <li> no menu </li>
+  //   }
+  //
+  //   else {
+  //     let drinkArr = this.state.dummy.drinks
+  //     for (var key in drinkArr) {
+  //       <div className = "singleMenu"> {drinkArr[key].name} </div>
+  //     }
+  //
+  //     let returnVal = [];
+  //     returnVal.push(drinkArr);
+  //     console.log(drinkArr)
+  //     console.log(typeof drinkArr)
+  //     // for (let i = 0; i < drinkArr.length; i++) {
+  //     //
+  //     // }
+  //     // drinkArr.map(function(item, i) {
+  //     //   if (item != undefined) {
+  //     //     console.log(item);
+  //     //     returnVal.push(item);
+  //     //   }
+  //     //
+  //     // })
+  //
+  //     return <p> "hi"</p>;
+  //   }
+  // }
 
 
   render() {
@@ -197,14 +235,15 @@ class PlaceReview extends Component {
     var createReactClass = require('create-react-class');
 
     var realThis = this;
+
     var MenuList = createReactClass({
       render: function() {
         //console.log("that")
       return (
         <div id="menuList" >
           <p> MENU </p>
-          <Button value = "menu1" onClick = {(e) => realThis.handleMenu(e)}>
-           menu 1 </Button>
+          {realThis.mapDrinks()}
+
         </div>
       );
     }
