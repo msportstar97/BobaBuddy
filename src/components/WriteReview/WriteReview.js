@@ -19,6 +19,16 @@ class WriteReview extends Component {
       selectedSugar: "",
       selectedTopping: [],
       additionalReview: "",
+      menuOC: 0,
+      sizeOC: 0,
+      iceOC: 0,
+      sugarOC: 0,
+      toppingOC: 0,
+      showMenuWarning: false,
+      showSizeWarning: false,
+      showIceWarning: false,
+      showSugarWarning: false,
+      showToppingWarning: false
     }
 
     this.handleMenuSelection = this.handleMenuSelection.bind(this);
@@ -26,28 +36,64 @@ class WriteReview extends Component {
 
   handleMenuSelection = (e, {value}) => {
     this.setState({selectedMenu: value})
+    this.setState({menuOC: this.state.menuOC + 1});
+    this.setState({showMenuWarning: false});
   }
 
   handleSizeSelection = (e, {value}) => {
     this.setState({selectedSize: value})
+    this.setState({sizeOC: this.state.sizeOC + 1});
+    this.setState({showSizeWarning: false});
   }
 
   handleIceSelection = (e, {value}) => {
-    this.setState({selectedIce: value})
+    this.setState({selectedIce: value});
+    this.setState({iceOC: this.state.iceOC + 1});
+    this.setState({showIceWarning: false});
   }
 
   handleSugarSelection = (e, {value}) => {
-    this.setState({selectedSugar: value})
+    this.setState({selectedSugar: value});
+    this.setState({sugarOC: this.state.sugarOC + 1})
+    this.setState({showSugarWarning: false});
   }
 
   handleToppingSelection = (e, {value}) => {
-    this.setState({selectedTopping: value})
+    this.setState({selectedTopping: value});
+    this.setState({toppingOC: this.state.toppingOC + 1})
+    this.setState({showToppingWarning: false});
   }
 
   handleAdditionalReview = (e, {value}) => {
     this.setState({additionalReview: value})
   }
 
+  handleSubmitReview = () => {
+    if (this.state.menuOC == 0) {
+      this.setState({showMenuWarning: true});
+    }
+    if (this.state.sizeOC == 0) {
+      console.log("Select Size")
+      this.setState({showSizeWarning: true});
+    }
+    if (this.state.iceOC == 0) {
+      console.log("invalid ice")
+      this.setState({showIceWarning: true});
+    }
+    if (this.state.sugarOC == 0) {
+      console.log("invalid sugar")
+      this.setState({showSugarWarning: true});
+    }
+    if (this.state.toppingOC == 0) {
+      console.log("invalid topping")
+      this.setState({showToppingWarning: true});
+    }
+
+    else {
+      //submit review
+
+    }
+  }
 
 
   render() {
@@ -176,6 +222,11 @@ class WriteReview extends Component {
 
     const toppingOptions = [
       {
+        key: "no topping",
+        value: "no topping",
+        text: "no topping"
+      },
+      {
         key: "pudding",
         value: "puddig",
         text: "pudding"
@@ -217,6 +268,16 @@ class WriteReview extends Component {
       }
     ];
 
+    var Warning = createReactClass({
+      render: function() {
+      return (
+        <div id="warning" className="select-warning">
+          Select
+        </div>
+      );
+    }
+  });
+
 
 
 
@@ -225,6 +286,7 @@ class WriteReview extends Component {
         <div className = "review-section">
         <p id = "review-title"> Write a Review for KFT </p>
         Menu to review *
+        { this.state.showMenuWarning ? <Warning /> : null }
         <Dropdown className = "dropdown"
         placeholder='Search | Select'
         fluid
@@ -235,6 +297,7 @@ class WriteReview extends Component {
         onChange={(e, { value }) => this.handleMenuSelection(e, { value })}
         />
         Size Option *
+        { this.state.showSizeWarning ? <Warning /> : null }
         <Dropdown className = "dropdown"
           placeholder='Select Size Option'
           fluid
@@ -243,6 +306,7 @@ class WriteReview extends Component {
           onChange={(e, { value }) => this.handleSizeSelection(e, { value })}
         />
         Ice Level *
+        { this.state.showIceWarning ? <Warning /> : null }
         <Dropdown className = "dropdown"
           placeholder='Select Ice Level'
           fluid
@@ -251,6 +315,7 @@ class WriteReview extends Component {
           onChange={(e, { value }) => this.handleIceSelection(e, { value })}
         />
         Sugar Level *
+        { this.state.showSugarWarning ? <Warning /> : null }
         <Dropdown className = "dropdown"
           placeholder='Select Sugar Level'
           fluid
@@ -259,6 +324,7 @@ class WriteReview extends Component {
           onChange={(e, { value }) => this.handleSugarSelection(e, { value })}
         />
         Topping(s) *
+        { this.state.showToppingWarning ? <Warning /> : null }
         <Dropdown className = "dropdown"
           placeholder='Search | Select Topping(s)'
           fluid
@@ -275,7 +341,7 @@ class WriteReview extends Component {
           />
         </Form>
         <div class = "button-row">
-        <Button> Submit </Button> <Button> Cancel </Button>
+        <Button onClick = {this.handleSubmitReview.bind(this)}> Submit </Button> <Button> Cancel </Button>
         </div>
         </div>
       </div>
