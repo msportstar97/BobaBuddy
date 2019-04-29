@@ -97,6 +97,7 @@ class WriteReview extends Component {
 
 
   render() {
+    const place = this.props.location.state.place;
     const menuOptions = [
       {
         key: "peach oolong tea",
@@ -284,7 +285,7 @@ class WriteReview extends Component {
     return (
       <div className = "WriteReview">
         <div className = "review-section">
-        <p id = "review-title"> Write a Review for KFT </p>
+        <p id = "review-title"> Write a Review for {place.name} </p>
         Menu to review *
         { this.state.showMenuWarning ? <Warning /> : null }
         <Dropdown className = "dropdown"
