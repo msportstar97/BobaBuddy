@@ -33,7 +33,7 @@ class Header extends Component {
     if (loggedIn) {
       button = <div className="buttons">
                 <Link to="/">
-                  <Icon id="signout-button" link name='sign out' size='big' onClick={() => this.signout()}/>
+                  <Icon id="signout-button" link name='bars' size='big' onClick={() => this.signout()}/>
                 </Link>
                </div>
       hello = <div className="username">

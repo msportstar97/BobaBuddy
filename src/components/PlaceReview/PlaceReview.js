@@ -221,6 +221,13 @@ class PlaceReview extends Component {
 
     return (
       <div className = "placeReview">
+         <Link to={{
+                   pathname: "/Results/" + this.props.location.state.search,
+                   state: {
+                     place: this.props.location.state.search
+                   }}} >
+                   <Button id="goBack">Go Back</Button>
+                 </Link>
         <div className = "placeInfo">
           <p> {place.name} </p>
           <p> {place.rating} </p>

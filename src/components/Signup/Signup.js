@@ -50,9 +50,6 @@ class Signup extends Component {
       
         const promise = auth.createUserWithEmailAndPassword(email, password);
         promise
-            .then(auth.onAuthStateChanged((user) => {
-            if (user) this.handlelogin();
-            }))
             .catch(e=>console.log(e.message));
         
         firebase.auth().onAuthStateChanged((user) => {
@@ -63,6 +60,7 @@ class Signup extends Component {
                     email: email,
                     reviews: ["init"] 
                 });
+                this.handlelogin();
             } 
         });
       

@@ -33,13 +33,15 @@ class Login extends Component {
       //   name: email,
       //   password: password
       // });
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          this.handlelogin();
+        } 
+      })
       
-        const promise = auth.signInWithEmailAndPassword(email, password);
-        promise
-            .then(auth.onAuthStateChanged((user) => {
-            if (user) this.handlelogin();
-            }))
-            .catch(e=>console.log(e.message));
+      const promise = auth.signInWithEmailAndPassword(email, password);
+      promise
+          .catch(e=>console.log(e.message));
       
     } else {
       this.handleError('invalid email/password');
