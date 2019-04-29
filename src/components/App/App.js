@@ -39,7 +39,7 @@ class App extends Component {
           <Route exact path="/Login" render={() => <Login updatelogin={this.updatelogin}/>}/>
           <Route exact path="/Signup" render={() => <Signup updatelogin={this.updatelogin}/>}/>
           <Route exact path="/Profile" render={() => <Profile updatelogin={this.updatelogin}/>}/>
-          <Route exact path="/Results" component={Results}/>
+          <Route path="/Results/:id" component={Results}/>
           <Route exact path="/PlaceReview" component={PlaceReview}/>
           <Route exact path="/WriteReview" component={WriteReview}/>
         </Switch>

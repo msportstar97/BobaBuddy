@@ -205,22 +205,26 @@ class PlaceReview extends Component {
 
     //console.log({place})
     //console.log(place.place.name)
+    let button;
 
+    if (firebase.auth().currentUser) {
+      button = <Link to={{
+                pathname: "/WriteReview",
+                state: {
+                  place: place
+                }}} >
+                  <Button id="reviewButton"> Leave a Review </Button>
+                </Link>
+    } else {
+      button = <p className="reviewLog"> Log in to leave a review </p>;
+    }
 
     return (
       <div className = "placeReview">
         <div className = "placeInfo">
           <p> {place.name} </p>
           <p> {place.rating} </p>
-          <Link to={{
-            pathname: "/WriteReview",
-            state: {
-              place: place,
-              ourId: this.state.ourId
-            }
-            }} >
-            <Button> Leave a Review </Button>
-          </Link>
+          {button}
         </div>
 
         <div className = "menuInfo">

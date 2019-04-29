@@ -23,7 +23,7 @@ class Results extends Component {
       showDrinkDropdown: false,
       drinkFilterOption: "",
       query: '',
-      value: '',
+      value: ''
     }
 
     this.apiKey = '&key=AIzaSyDFtzabY5k6-NOC6V1h3b-LjftEvZyW2MY';
@@ -37,6 +37,11 @@ class Results extends Component {
   componentDidMount() {
     //console.log(this.props)
     const {place} = this.props.location.state;
+
+    this.setState({
+      query: place,
+      value: place
+    })
 
     let locUrl = `${this.geolocUrl}${place.replace(/\s/g,'+')}${this.apiKey}`;
 
@@ -64,6 +69,41 @@ class Results extends Component {
       console.log(error);
     });
 
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.state !== this.props.location.state) {
+      let place = nextProps.location.state.place;
+      this.setState({
+        query: place,
+        value: place
+      });
+      let locUrl = `${this.geolocUrl}${place.replace(/\s/g,'+')}${this.apiKey}`;
+
+      axios.get(locUrl).then((response) => {
+        this.setState({
+          geo: response.data.results[0].geometry.location
+        })
+
+        var placesRequest = {
+          location: new window.google.maps.LatLng(this.state.geo.lat, this.state.geo.lng),
+          keyword: '(bubble tea) OR (boba)',
+          rankBy: window.google.maps.places.RankBy.DISTANCE,
+        };
+
+        let map = new window.google.maps.Map(document.createElement('div'));
+        let service = new window.google.maps.places.PlacesService(map);
+
+        service.search(placesRequest, ((response) => {
+          this.setState({
+            results: response
+          })
+          //console.log(this.state.results);
+        }))
+      }).catch((error) => {
+        console.log(error);
+      });
+      }
   }
 
   filterOptions = [
@@ -118,12 +158,23 @@ class Results extends Component {
 
   }
 
+  handleChange = (event) => {
+    this.setState({
+      query: event.target.value,
+      value: event.target.value
+    });
+  }
 
+  handleSelect = (event) => {
+    this.setState({
+      query: event.formatted_address,
+      value: event.formatted_address
+    })
+  }
 
    render() {
      //console.log(this.state.results)
-     const {query, value} = this.state
-
+     let {query, value} = this.state;
      const drinkOptions = [
        {
          key: "peach oolong tea",
@@ -167,9 +218,36 @@ class Results extends Component {
       }
     });
 
-
-
     // console.log('results', this.state.results);
+
+    let cardView;
+
+    if (this.state.results.length === 0) {
+      cardView = <p className="noResults"> Sorry, there are no boba places from this search </p>;
+    } else { 
+      cardView = <div className="cards">
+                  {this.state.results.map((boba, idx) =>
+                    <Link to={{
+                      pathname: "/PlaceReview",
+                      state: {
+                        place: boba
+                      }}} key={idx} >
+                    <div className="bobaPlace">
+                      <p id = "place_name"> {boba.name} </p>
+                      <p>{boba.vicinity}</p>
+                      <span id = "place_rating"> {boba.rating} / 5.0 </span>
+                      <StarRatings
+                        rating={boba.rating}
+                        starDimension="15px"
+                        starSpacing="2px"
+                        starRatedColor="#6FB59B"
+                        starEmptyColor = "#D9D9D9"
+                      />
+                    </div>
+                    </Link>
+                  )}
+                </div>;
+    }
 
      return (
        <div className="results">
@@ -180,29 +258,29 @@ class Results extends Component {
              params={{key: API_KEY,
              libraries: "places,geocode"}}
              render={googleMaps => googleMaps && (
-               <div className="search-bar">
+               <div className="searchAgainBar">
                  <ReactGooglePlacesSuggest
                  autocompletionRequest={{input: query}}
                  googleMaps={googleMaps}
                  onSelectSuggest={this.handleSelect}>
-                 <Input className="search-form"
+                 <Input className="searchAgainForm"
                  placeholder="Search for location (address, zip code..)"
                  onChange={this.handleChange}
                  value={value}/>
                  </ReactGooglePlacesSuggest>
                  <Link to={{
-                   pathname: "/Results",
+                   pathname: "/Results/" + value,
                    state: {
                      place: value
                    }}} >
-                   <Button className="search-button">Search</Button>
+                   <Button className="searchAgainButton">Search</Button>
                  </Link>
                </div>
              )}>
              </ReactGoogleMapLoader>
            </div>
-            <div className = "filterDropdown" style = {{zIndex: 1}}>
-                <Dropdown className = "order-select" onChange={(e, {value}) => this.handleFilter(e, { value })}
+            <div className="filterDropdown" style = {{zIndex: 1}}>
+                <Dropdown className="order-select" onChange={(e, {value}) => this.handleFilter(e, { value })}
                 placeholder={this.state.filterOption}
                 fluid
                 selection
@@ -211,29 +289,7 @@ class Results extends Component {
                 { this.state.showDrinkDropdown ? <DrinkDropdown /> : null }
             </div>
           </div>
-
-        <div className="cards">
-          {this.state.results.map((boba, idx) =>
-            <Link to={{
-              pathname: "/PlaceReview",
-              state: {
-                place: boba
-              }}}  >
-            <div className="bobaPlace" key={idx}>
-              <p id = "place_name"> {boba.name} </p>
-              <p>{boba.vicinity}</p>
-              <span id = "place_rating"> {boba.rating} / 5.0 </span>
-              <StarRatings
-                rating={boba.rating}
-                starDimension="15px"
-                starSpacing="2px"
-                starRatedColor="#6FB59B"
-                starEmptyColor = "#D9D9D9"
-              />
-            </div>
-            </Link>
-          )}
-        </div>
+        {cardView}
        </div>
      );
    }
