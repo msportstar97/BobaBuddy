@@ -27,8 +27,7 @@ class WriteReview extends Component {
       showMenuWarning: false,
       showSizeWarning: false,
       showIceWarning: false,
-      showSugarWarning: false,
-      showToppingWarning: false
+      showSugarWarning: false
     }
 
     this.handleMenuSelection = this.handleMenuSelection.bind(this);
@@ -61,7 +60,6 @@ class WriteReview extends Component {
   handleToppingSelection = (e, {value}) => {
     this.setState({selectedTopping: value});
     this.setState({toppingOC: this.state.toppingOC + 1})
-    this.setState({showToppingWarning: false});
   }
 
   handleAdditionalReview = (e, {value}) => {
@@ -83,10 +81,6 @@ class WriteReview extends Component {
     if (this.state.sugarOC == 0) {
       console.log("invalid sugar")
       this.setState({showSugarWarning: true});
-    }
-    if (this.state.toppingOC == 0) {
-      console.log("invalid topping")
-      this.setState({showToppingWarning: true});
     }
 
     else {
@@ -325,7 +319,6 @@ class WriteReview extends Component {
           onChange={(e, { value }) => this.handleSugarSelection(e, { value })}
         />
         Topping(s) *
-        { this.state.showToppingWarning ? <Warning /> : null }
         <Dropdown className = "dropdown"
           placeholder='Search | Select Topping(s)'
           fluid

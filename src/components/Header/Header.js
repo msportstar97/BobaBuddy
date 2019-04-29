@@ -12,7 +12,6 @@ class Header extends Component {
 
     if (user){
       this.props.updatelogin(true)
-
     }
 
     this.signout = this.signout.bind(this);
@@ -26,7 +25,7 @@ class Header extends Component {
     }
     this.props.updatelogin(false);
    }
-    
+
   render() {
     const loggedIn = this.props.loggedIn;
     let button;
@@ -38,7 +37,7 @@ class Header extends Component {
                 </Link>
                </div>
       hello = <div className="username">
-              Hello, {firebase.auth().currentUser.email}! 
+              Hello, {firebase.auth().currentUser.email}!
               </div>
     } else {
       button = <div className="buttons">
