@@ -23,7 +23,7 @@ class Results extends Component {
       showDrinkDropdown: false,
       drinkFilterOption: "",
       query: '',
-      value: '',
+      value: ''
     }
 
     this.apiKey = '&key=AIzaSyDFtzabY5k6-NOC6V1h3b-LjftEvZyW2MY';
@@ -37,6 +37,11 @@ class Results extends Component {
   componentDidMount() {
     //console.log(this.props)
     const {place} = this.props.location.state;
+
+    this.setState({
+      query: place,
+      value: place
+    })
 
     let locUrl = `${this.geolocUrl}${place.replace(/\s/g,'+')}${this.apiKey}`;
 
@@ -64,6 +69,41 @@ class Results extends Component {
       console.log(error);
     });
 
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.state !== this.props.location.state) {
+      let place = nextProps.location.state.place;
+      this.setState({
+        query: place,
+        value: place
+      });
+      let locUrl = `${this.geolocUrl}${place.replace(/\s/g,'+')}${this.apiKey}`;
+
+      axios.get(locUrl).then((response) => {
+        this.setState({
+          geo: response.data.results[0].geometry.location
+        })
+
+        var placesRequest = {
+          location: new window.google.maps.LatLng(this.state.geo.lat, this.state.geo.lng),
+          keyword: '(bubble tea) OR (boba)',
+          rankBy: window.google.maps.places.RankBy.DISTANCE,
+        };
+
+        let map = new window.google.maps.Map(document.createElement('div'));
+        let service = new window.google.maps.places.PlacesService(map);
+
+        service.search(placesRequest, ((response) => {
+          this.setState({
+            results: response
+          })
+          //console.log(this.state.results);
+        }))
+      }).catch((error) => {
+        console.log(error);
+      });
+      }
   }
 
   filterOptions = [
@@ -118,12 +158,23 @@ class Results extends Component {
 
   }
 
+  handleChange = (event) => {
+    this.setState({
+      query: event.target.value,
+      value: event.target.value
+    });
+  }
 
+  handleSelect = (event) => {
+    this.setState({
+      query: event.formatted_address,
+      value: event.formatted_address
+    })
+  }
 
    render() {
      //console.log(this.state.results)
-     const {query, value} = this.state
-
+     let {query, value} = this.state;
      const drinkOptions = [
        {
          key: "peach oolong tea",
@@ -167,8 +218,6 @@ class Results extends Component {
       }
     });
 
-
-
     // console.log('results', this.state.results);
 
      return (
@@ -191,7 +240,7 @@ class Results extends Component {
                  value={value}/>
                  </ReactGooglePlacesSuggest>
                  <Link to={{
-                   pathname: "/Results",
+                   pathname: "/Results/" + value,
                    state: {
                      place: value
                    }}} >
@@ -218,8 +267,8 @@ class Results extends Component {
               pathname: "/PlaceReview",
               state: {
                 place: boba
-              }}}  >
-            <div className="bobaPlace" key={idx}>
+              }}} key={idx} >
+            <div className="bobaPlace">
               <p id = "place_name"> {boba.name} </p>
               <p>{boba.vicinity}</p>
               <span id = "place_rating"> {boba.rating} / 5.0 </span>

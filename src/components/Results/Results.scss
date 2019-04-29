@@ -11,6 +11,10 @@
   top: 2vw;
   position: relative;
   z-index: 2;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  padding-left: 3vw;
+  padding-right: 3vw;
 }
 
 .filterDropdown {
@@ -26,7 +30,7 @@
 
 
 .cards {
-  margin-top: 10vw;
+  margin-top: 10vh;
 }
 
 #drink_rating {
