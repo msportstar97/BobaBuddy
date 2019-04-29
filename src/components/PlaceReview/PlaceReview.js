@@ -7,6 +7,7 @@ import createReactClass from 'create-react-class';
 import * as firebase from 'firebase';
 
 class PlaceReview extends Component {
+  _isMounted = false;
 
   constructor() {
     super();
@@ -24,36 +25,56 @@ class PlaceReview extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     // this.props.requestPageOfPlans();
     console.log('page loaded', this.props.location.state.place);
     const rootRef = firebase.database().ref();
     const placesRef = rootRef.child('places');
     const place = this.props.location.state.place;
+    var realThis = this;
 
-    // create a new id for firebase
-    var newPlaceRef = placesRef.push();
-    // add our prefix to the id
-    const ourPlaceId = "PLC" + newPlaceRef.key;
+    // let's check for dupes first!
+    // var isDupe = false;
+    placesRef.orderByChild('placeId').equalTo(place.id).on('value', function(snapshot) {
+      console.log('snapshot', snapshot.val());
+      var count = 0;
+      if (snapshot.exists()) {
+        count++;
+        // isDupe = true;
+      } else if (count === 0) {      
+        count++;
+        // create a new id for firebase
+        var newPlaceRef = placesRef.push();
+        // add our prefix to the id
+        const ourPlaceId = "PLC" + newPlaceRef.key;
 
-    // create fake drinks with our id and return an array of drink objIds
-    const fakeDrinks = this.makeFakeDrinks('testPlace');
-    
-    // create new place object
-    var newPlace = {
-      name: place.name,
-      placeId: place.id,
-      drinks: fakeDrinks
-    }
+        // create fake drinks with our id and return an array of drink objIds
+        console.log('this', this);
+        const fakeDrinks = realThis.makeFakeDrinks(ourPlaceId); 
+        
+        // create new place object
+        var newPlace = {
+          name: place.name,
+          placeId: place.id,
+          drinks: fakeDrinks
+        }
+        // send new place object to firebase 
+        placesRef.child(ourPlaceId).set(newPlace);
 
-    // send new place object to firebase 
-    placesRef.child(ourPlaceId).set(newPlace);
 
-    // view firebase db
-    rootRef.on('value', snap=> {
-          this.setState({
-            dummy: snap.val()
+        
+      }
+    });
+        // view firebase db
+        if (this._isMounted) {
+          rootRef.on('value', snap=> {
+            this.setState({
+              dummy: snap.val()
+            });
           });
-      });
+        }
+    
+
   }
 
   makeFakeDrinks(inPlaceId) {
@@ -113,6 +134,10 @@ class PlaceReview extends Component {
 
     drinksRef.child(ourDrinkId).set(drink);
     return {ourDrinkId};
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleMenu = (e) => {
