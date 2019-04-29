@@ -1,0 +1,29 @@
+$padding: 3vw;
+$margin: 5vw;
+
+.profileTitle {
+  margin-left: $margin;
+  margin-right: $margin;
+  margin-top: $margin;
+  padding-left: $padding;
+  padding-right: $padding;
+  padding-top: $padding;
+}
+
+.yourProfile {
+  margin-left: $margin;
+  margin-right: $margin;
+  padding: $padding;
+  border: 1px solid #D9D9D9;
+  border-radius: 2vw;
+  position: relative;
+}
+
+.yourReviews {
+  margin-left: $margin;
+  margin-right: $margin;
+  padding: $padding;
+  border: 1px solid #D9D9D9;
+  border-radius: 2vw;
+  position: relative;
+}

@@ -4,7 +4,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
 import createReactClass from 'create-react-class';
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 
 
 class WriteReview extends Component {
@@ -12,26 +13,44 @@ class WriteReview extends Component {
     super();
 
     this.state = {
-      selectedMenus: []
+      selectedMenu: "",
+      selectedSize: "",
+      selectedIce: "",
+      selectedSugar: "",
+      selectedTopping: [],
+      additionalReview: "",
     }
 
     this.handleMenuSelection = this.handleMenuSelection.bind(this);
   }
 
   handleMenuSelection = (e, {value}) => {
-    this.setState({selectedMenus: value})
+    this.setState({selectedMenu: value})
   }
 
-  handleCompleteStep1 = () => {
-    console.log(this.state.selectedMenus)
-    for (let j = 0; j < this.state.selectedMenus.length; j ++) {
-
-    }
+  handleSizeSelection = (e, {value}) => {
+    this.setState({selectedSize: value})
   }
+
+  handleIceSelection = (e, {value}) => {
+    this.setState({selectedIce: value})
+  }
+
+  handleSugarSelection = (e, {value}) => {
+    this.setState({selectedSugar: value})
+  }
+
+  handleToppingSelection = (e, {value}) => {
+    this.setState({selectedTopping: value})
+  }
+
+  handleAdditionalReview = (e, {value}) => {
+    this.setState({additionalReview: value})
+  }
+
+
 
   render() {
-    //const {place} = this.props.location.state;
-    var createReactClass = require('create-react-class');
     const menuOptions = [
       {
         key: "peach oolong tea",
@@ -198,58 +217,67 @@ class WriteReview extends Component {
       }
     ];
 
-    var ChooseOptions = createReactClass({
-      render: function() {
-      return (
-        <div id="choose-options" className="chooseOptions">
-        <Dropdown
-          placeholder='Select Size Option'
-          fluid
-          selection
-          options={sizeOptions}
-        />
-        <Dropdown
-          placeholder='Select Ice Level'
-          fluid
-          selection
-          options={iceOptions}
-        />
-        <Dropdown
-          placeholder='Select Sugar Level'
-          fluid
-          selection
-          options={sugarOptions}
-        />
-        <Dropdown
-          placeholder='Select Topping(s)'
-          fluid
-          selection
-          options={toppingOptions}
-        />
-
-        </div>
-      );
-    }
-  });
 
 
 
     return (
       <div className = "WriteReview">
+        <div className = "review-section">
         <p id = "review-title"> Write a Review for KFT </p>
-        <p> Select the menu(s) you ordered. </p>
-        <Dropdown
+        Menu to review *
+        <Dropdown className = "dropdown"
         placeholder='Search | Select'
         fluid
-        multiple
         search
         selection
 
         options={menuOptions}
         onChange={(e, { value }) => this.handleMenuSelection(e, { value })}
         />
-        <Button onClick = {() => this.handleCompleteStep1()}> Submit </Button>
-        <ChooseOptions/>
+        Size Option *
+        <Dropdown className = "dropdown"
+          placeholder='Select Size Option'
+          fluid
+          selection
+          options={sizeOptions}
+          onChange={(e, { value }) => this.handleSizeSelection(e, { value })}
+        />
+        Ice Level *
+        <Dropdown className = "dropdown"
+          placeholder='Select Ice Level'
+          fluid
+          selection
+          options={iceOptions}
+          onChange={(e, { value }) => this.handleIceSelection(e, { value })}
+        />
+        Sugar Level *
+        <Dropdown className = "dropdown"
+          placeholder='Select Sugar Level'
+          fluid
+          selection
+          options={sugarOptions}
+          onChange={(e, { value }) => this.handleSugarSelection(e, { value })}
+        />
+        Topping(s) *
+        <Dropdown className = "dropdown"
+          placeholder='Search | Select Topping(s)'
+          fluid
+          selection
+          multiple
+          search
+          options={toppingOptions}
+          onChange={(e, { value }) => this.handleToppingSelection(e, { value })}
+        />
+        <Form>
+          <Form.TextArea label='Additional Review'
+          placeholder='Tell us more about your experience'
+          onChange={(e, { value }) => this.handleAdditionalReview(e, { value })}
+          />
+        </Form>
+        <div class = "button-row">
+        <Button> Submit </Button> <Button> Cancel </Button>
+        </div>
+        </div>
       </div>
     );
   }
