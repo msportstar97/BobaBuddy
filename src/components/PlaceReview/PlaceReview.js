@@ -2,7 +2,7 @@ import './PlaceReview.scss';
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-import { Button } from 'semantic-ui-react'
+import { Button, Icon } from 'semantic-ui-react'
 import createReactClass from 'create-react-class';
 import * as firebase from 'firebase';
 
@@ -165,8 +165,14 @@ class PlaceReview extends Component {
   }
 
   handleMenu(e) {
+    console.log("menu selected");
     this.setState({selectedMenu: e.target.value});
     this.setState({showMenuList: false});
+  }
+
+  backButtonPressed(e) {
+    console.log("back");
+    this.setState({showMenuList: true});
   }
 
 
@@ -179,10 +185,12 @@ class PlaceReview extends Component {
     var realThis = this;
     var MenuList = createReactClass({
       render: function() {
+        //console.log("that")
       return (
         <div id="menuList" >
           <p> MENU </p>
-          <Button value = "menu1" onClick = {(e) => realThis.handleMenu(e)}> menu 1 </Button>
+          <Button value = "menu1" onClick = {(e) => realThis.handleMenu(e)}>
+           menu 1 </Button>
         </div>
       );
     }
@@ -190,10 +198,12 @@ class PlaceReview extends Component {
 
     var MenuReview = createReactClass({
       render: function() {
+        //console.log("this")
       return (
         <div id="menuReview">
+          <Button onClick = {(e) => realThis.backButtonPressed(e)} className="arrow left icon"> <Icon name = 'angle left' /> MENU </Button>
           menu review
-          <i className="arrow left icon"></i>
+
         </div>
       );
     }
