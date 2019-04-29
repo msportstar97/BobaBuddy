@@ -2,7 +2,7 @@ import './PlaceReview.scss';
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-import { Button } from 'semantic-ui-react'
+import { Button, Icon } from 'semantic-ui-react'
 import createReactClass from 'create-react-class';
 import * as firebase from 'firebase';
 
@@ -15,7 +15,7 @@ class PlaceReview extends Component {
     this.state = {
       showMenuList: true,
       showMenuReview: false,
-      selectedMenu: "", 
+      selectedMenu: "",
       dummy: {},
       ourId: '',
     }
@@ -62,7 +62,7 @@ class PlaceReview extends Component {
           });
         }
 
-      } else if (count === 0) {      
+      } else if (count === 0) {
         count++;
         // create a new id for firebase
         var newPlaceRef = placesRef.push();
@@ -70,15 +70,15 @@ class PlaceReview extends Component {
         ourPlaceId = "PLC" + newPlaceRef.key;
 
         // create fake drinks with our id and return an array of drink objIds
-        const fakeDrinks = realThis.makeFakeDrinks(ourPlaceId); 
-        
+        const fakeDrinks = realThis.makeFakeDrinks(ourPlaceId);
+
         // create new place object
         var newPlace = {
           name: place.name,
           placeId: place.id,
           drinks: fakeDrinks
         }
-        // send new place object to firebase 
+        // send new place object to firebase
         placesRef.child(ourPlaceId).set(newPlace);
 
         console.log('our place id', ourPlaceId);
@@ -92,12 +92,12 @@ class PlaceReview extends Component {
             });
           });
         }
-        
+
       }
     });
 
-    
-    
+
+
 
   }
 
@@ -164,10 +164,15 @@ class PlaceReview extends Component {
     this._isMounted = false;
   }
 
-  handleMenu = (e) => {
-    console.log("a");
-    // this.setState({selectedMenu: e.target.value});
-    // this.setState({showMenuList: false});
+  handleMenu(e) {
+    console.log("menu selected");
+    this.setState({selectedMenu: e.target.value});
+    this.setState({showMenuList: false});
+  }
+
+  backButtonPressed(e) {
+    console.log("back");
+    this.setState({showMenuList: true});
   }
 
 
@@ -177,16 +182,15 @@ class PlaceReview extends Component {
 
     var createReactClass = require('create-react-class');
 
-    function handleMenu (e) {
-      console.log(e.target.value);
-
-    }
+    var realThis = this;
     var MenuList = createReactClass({
       render: function() {
+        //console.log("that")
       return (
         <div id="menuList" >
           <p> MENU </p>
-          <Button value = "menu1" onClick = {(e) => handleMenu(e)}> menu 1 </Button>
+          <Button value = "menu1" onClick = {(e) => realThis.handleMenu(e)}>
+           menu 1 </Button>
         </div>
       );
     }
@@ -194,10 +198,12 @@ class PlaceReview extends Component {
 
     var MenuReview = createReactClass({
       render: function() {
+        //console.log("this")
       return (
-        <div id="results" className="search-results">
+        <div id="menuReview">
+          <Button onClick = {(e) => realThis.backButtonPressed(e)} className="arrow left icon"> <Icon name = 'angle left' /> MENU </Button>
           menu review
-          <i className="arrow left icon"></i>
+
         </div>
       );
     }
