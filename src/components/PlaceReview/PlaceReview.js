@@ -15,7 +15,7 @@ class PlaceReview extends Component {
     this.state = {
       showMenuList: true,
       showMenuReview: false,
-      selectedMenu: "", 
+      selectedMenu: "",
       dummy: {},
       ourId: '',
     }
@@ -62,7 +62,7 @@ class PlaceReview extends Component {
           });
         }
 
-      } else if (count === 0) {      
+      } else if (count === 0) {
         count++;
         // create a new id for firebase
         var newPlaceRef = placesRef.push();
@@ -70,15 +70,15 @@ class PlaceReview extends Component {
         ourPlaceId = "PLC" + newPlaceRef.key;
 
         // create fake drinks with our id and return an array of drink objIds
-        const fakeDrinks = realThis.makeFakeDrinks(ourPlaceId); 
-        
+        const fakeDrinks = realThis.makeFakeDrinks(ourPlaceId);
+
         // create new place object
         var newPlace = {
           name: place.name,
           placeId: place.id,
           drinks: fakeDrinks
         }
-        // send new place object to firebase 
+        // send new place object to firebase
         placesRef.child(ourPlaceId).set(newPlace);
 
         console.log('our place id', ourPlaceId);
@@ -92,12 +92,12 @@ class PlaceReview extends Component {
             });
           });
         }
-        
+
       }
     });
 
-    
-    
+
+
 
   }
 
@@ -164,10 +164,9 @@ class PlaceReview extends Component {
     this._isMounted = false;
   }
 
-  handleMenu = (e) => {
-    console.log("a");
-    // this.setState({selectedMenu: e.target.value});
-    // this.setState({showMenuList: false});
+  handleMenu(e) {
+    this.setState({selectedMenu: e.target.value});
+    this.setState({showMenuList: false});
   }
 
 
@@ -177,16 +176,13 @@ class PlaceReview extends Component {
 
     var createReactClass = require('create-react-class');
 
-    function handleMenu (e) {
-      console.log(e.target.value);
-
-    }
+    var realThis = this;
     var MenuList = createReactClass({
       render: function() {
       return (
         <div id="menuList" >
           <p> MENU </p>
-          <Button value = "menu1" onClick = {(e) => handleMenu(e)}> menu 1 </Button>
+          <Button value = "menu1" onClick = {(e) => realThis.handleMenu(e)}> menu 1 </Button>
         </div>
       );
     }
@@ -195,7 +191,7 @@ class PlaceReview extends Component {
     var MenuReview = createReactClass({
       render: function() {
       return (
-        <div id="results" className="search-results">
+        <div id="menuReview">
           menu review
           <i className="arrow left icon"></i>
         </div>

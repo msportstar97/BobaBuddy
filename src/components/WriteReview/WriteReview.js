@@ -70,7 +70,7 @@ class WriteReview extends Component {
 
     drinksRef.orderByChild('places').equalTo(ourPlaceId).on("value", function(snapshot) {
       console.log('les drinks', snapshot.val());
-      
+
       snapshot.forEach(function(data) {
         console.log('data val', data.val());
         arr.push({
@@ -83,10 +83,10 @@ class WriteReview extends Component {
     realThis.setState({
       menuOptions: arr,
     });
-      
+
   });
 
-    
+
 
   }
 
