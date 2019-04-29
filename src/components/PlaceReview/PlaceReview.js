@@ -166,7 +166,7 @@ class PlaceReview extends Component {
   }
 
   handleMenu(e) {
-    console.log("menu selected");
+    console.log(e.target.value);
     this.setState({selectedMenu: e.target.value});
     this.setState({showMenuList: false});
   }
@@ -184,7 +184,7 @@ mapDrinks() {
     let drinkArr = this.state.dummy.drinks;
     let buffer = []
     for (var key in drinkArr) {
-          buffer.push(<Button className = "singleMenu"> {drinkArr[key].name} </Button>);
+          buffer.push(<Button className = "singleMenu" value = {drinkArr[key].name} onClick = {(e) => this.handleMenu(e)}> {drinkArr[key].name} </Button>);
     //     }
     // console.log(Object.keys(this.state.dummy.drinks))
     //   return Object.keys(this.state.dummy.drinks).map((key, index) =>
