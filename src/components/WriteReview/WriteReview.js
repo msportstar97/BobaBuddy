@@ -6,13 +6,35 @@ import { Button } from 'semantic-ui-react'
 import createReactClass from 'create-react-class';
 import { Dropdown } from 'semantic-ui-react';
 import { Form } from 'semantic-ui-react';
-
+import * as firebase from 'firebase';
 
 class WriteReview extends Component {
   constructor() {
     super();
 
     this.state = {
+      menuOptions: [
+        {
+          key: "mango oolong tea",
+          value: "mango oolong tea",
+          text: "Mango Oolong Tea"
+        },
+        {
+          key: "peach oolong tea",
+          value: "peach oolong tea",
+          text: "Peach Oolong Tea"
+        },
+        {
+          key: "oolong tea",
+          value: "oolong tea",
+          text: "Oolong Tea"
+        },
+        {
+          key: "oolong milk tea",
+          value: "oolong milk tea",
+          text: "Oolong Milk Tea"
+        }
+      ],
       selectedMenu: "",
       selectedSize: "",
       selectedIce: "",
@@ -32,6 +54,40 @@ class WriteReview extends Component {
     }
 
     this.handleMenuSelection = this.handleMenuSelection.bind(this);
+  }
+
+  componentDidMount() {
+    const rootRef = firebase.database().ref();
+    const placesRef = rootRef.child('places');
+    const drinksRef = rootRef.child('drinks');
+    const place = this.props.location.state.place;
+    const ourPlaceId = this.props.location.state.ourId;
+    var realThis = this;
+    console.log('get drinks', ourPlaceId);
+
+    // var listOfDrinks = [];
+    var arr = [];
+
+    drinksRef.orderByChild('place').equalTo(ourPlaceId).on("value", function(snapshot) {
+      console.log('les drinks', snapshot.val());
+      
+      snapshot.forEach(function(data) {
+        console.log('data val', data.val());
+        arr.push({
+          key: data.val().name,
+          value: data.val().name,
+          name: data.val().name,
+        });
+    });
+    console.log('arr', arr, realThis.state.menuOptions);
+    realThis.setState({
+      menuOptions: arr,
+    });
+      
+  });
+
+    
+
   }
 
   handleMenuSelection = (e, {value}) => {
@@ -69,22 +125,22 @@ class WriteReview extends Component {
   }
 
   handleSubmitReview = () => {
-    if (this.state.menuOC == 0) {
+    if (this.state.menuOC === 0) {
       this.setState({showMenuWarning: true});
     }
-    if (this.state.sizeOC == 0) {
+    if (this.state.sizeOC === 0) {
       console.log("Select Size")
       this.setState({showSizeWarning: true});
     }
-    if (this.state.iceOC == 0) {
+    if (this.state.iceOC === 0) {
       console.log("invalid ice")
       this.setState({showIceWarning: true});
     }
-    if (this.state.sugarOC == 0) {
+    if (this.state.sugarOC === 0) {
       console.log("invalid sugar")
       this.setState({showSugarWarning: true});
     }
-    if (this.state.toppingOC == 0) {
+    if (this.state.toppingOC === 0) {
       console.log("invalid topping")
       this.setState({showToppingWarning: true});
     }
@@ -98,23 +154,8 @@ class WriteReview extends Component {
 
   render() {
     const place = this.props.location.state.place;
-    const menuOptions = [
-      {
-        key: "peach oolong tea",
-        value: "peach oolong tea",
-        text: "Peach Oolong Tea"
-      },
-      {
-        key: "oolong tea",
-        value: "oolong tea",
-        text: "Oolong Tea"
-      },
-      {
-        key: "oolong milk tea",
-        value: "oolong milk tea",
-        text: "Oolong Milk Tea"
-      }
-    ];
+    // const menuOptions = this.state.menuOptions;
+    console.log('the real menu options', this.state.menuOptions);
 
     const iceOptions = [
       {
@@ -294,7 +335,7 @@ class WriteReview extends Component {
         search
         selection
 
-        options={menuOptions}
+        options={this.state.menuOptions}
         onChange={(e, { value }) => this.handleMenuSelection(e, { value })}
         />
         Size Option *
@@ -341,7 +382,7 @@ class WriteReview extends Component {
           onChange={(e, { value }) => this.handleAdditionalReview(e, { value })}
           />
         </Form>
-        <div class = "button-row">
+        <div className = "button-row">
         <Button onClick = {this.handleSubmitReview.bind(this)}> Submit </Button> <Button> Cancel </Button>
         </div>
         </div>

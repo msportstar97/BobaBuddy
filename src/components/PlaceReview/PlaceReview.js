@@ -16,7 +16,8 @@ class PlaceReview extends Component {
       showMenuList: true,
       showMenuReview: false,
       selectedMenu: "", 
-      dummy: {}
+      dummy: {},
+      ourId: '',
     }
 
     this.handleMenu = this.handleMenu.bind(this);
@@ -33,23 +34,42 @@ class PlaceReview extends Component {
     const place = this.props.location.state.place;
     var realThis = this;
 
+    var ourPlaceId = "";
+
     // let's check for dupes first!
     // var isDupe = false;
     placesRef.orderByChild('placeId').equalTo(place.id).on('value', function(snapshot) {
       console.log('snapshot', snapshot.val());
       var count = 0;
-      if (snapshot.exists()) {
+      if (snapshot.exists() && count === 0) {
         count++;
+        snapshot.forEach(function(data) {
+          // console.log('data key',data.key);
+          ourPlaceId = data.key;
+      });
+        // ourPlaceId = snapshot.val();
         // isDupe = true;
+
+        console.log('our place id', ourPlaceId);
+
+        // view firebase db
+        if (realThis._isMounted) {
+          rootRef.on('value', snap=> {
+            realThis.setState({
+              dummy: snap.val(),
+              ourId: ourPlaceId,
+            });
+          });
+        }
+
       } else if (count === 0) {      
         count++;
         // create a new id for firebase
         var newPlaceRef = placesRef.push();
         // add our prefix to the id
-        const ourPlaceId = "PLC" + newPlaceRef.key;
+        ourPlaceId = "PLC" + newPlaceRef.key;
 
         // create fake drinks with our id and return an array of drink objIds
-        console.log('this', this);
         const fakeDrinks = realThis.makeFakeDrinks(ourPlaceId); 
         
         // create new place object
@@ -61,18 +81,22 @@ class PlaceReview extends Component {
         // send new place object to firebase 
         placesRef.child(ourPlaceId).set(newPlace);
 
+        console.log('our place id', ourPlaceId);
 
-        
-      }
-    });
         // view firebase db
-        if (this._isMounted) {
+        if (realThis._isMounted) {
           rootRef.on('value', snap=> {
-            this.setState({
-              dummy: snap.val()
+            realThis.setState({
+              dummy: snap.val(),
+              ourId: ourPlaceId,
             });
           });
         }
+        
+      }
+    });
+
+    
     
 
   }
@@ -80,7 +104,7 @@ class PlaceReview extends Component {
   makeFakeDrinks(inPlaceId) {
     var fakeDrinksObjIds = [];
 
-    var placeId = {inPlaceId};
+    var placeId = inPlaceId;
     var drinksRef = firebase.database().ref("drinks");
 
     // var newDrinkRef = drinksRef.push();
@@ -173,7 +197,7 @@ class PlaceReview extends Component {
       return (
         <div id="results" className="search-results">
           menu review
-          <i class="arrow left icon"></i>
+          <i className="arrow left icon"></i>
         </div>
       );
     }
@@ -191,8 +215,10 @@ class PlaceReview extends Component {
           <Link to={{
             pathname: "/WriteReview",
             state: {
-              place: place
-            }}} >
+              place: place,
+              ourId: this.state.ourId
+            }
+            }} >
             <Button> Leave a Review </Button>
           </Link>
         </div>
