@@ -9,8 +9,8 @@ import { Form } from 'semantic-ui-react';
 import * as firebase from 'firebase';
 
 class WriteReview extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       menuOptions: [
@@ -59,15 +59,16 @@ class WriteReview extends Component {
     const rootRef = firebase.database().ref();
     const placesRef = rootRef.child('places');
     const drinksRef = rootRef.child('drinks');
+    console.log(this.props);
     const place = this.props.location.state.place;
-    const ourPlaceId = this.props.location.state.ourId;
+    const ourPlaceId = "PLC-" + this.props.location.state.place.place_id;
     var realThis = this;
     console.log('get drinks', ourPlaceId);
 
     // var listOfDrinks = [];
     var arr = [];
 
-    drinksRef.orderByChild('place').equalTo(ourPlaceId).on("value", function(snapshot) {
+    drinksRef.orderByChild('places').equalTo(ourPlaceId).on("value", function(snapshot) {
       console.log('les drinks', snapshot.val());
       
       snapshot.forEach(function(data) {
