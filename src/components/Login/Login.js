@@ -34,7 +34,9 @@ class Login extends Component {
       
         const promise = auth.signInWithEmailAndPassword(email, password);
         promise
-            .then(this.handlelogin())
+            .then(auth.onAuthStateChanged((user) => {
+            if (user) this.handlelogin();
+            }))
             .catch(e=>console.log(e.message));
       
     } else {
