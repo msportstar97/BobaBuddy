@@ -8,35 +8,13 @@
 }
 
 .top {
-  margin-top: 2vw;
+  top: 2vw;
+  position: relative;
   z-index: 2;
-  margin-left: 10vw;
-  display: grid;
-  grid-template-areas: "filters search";
-  grid-template-columns: 40vw 1fr; 
-}
-
-.searchAgainBar {
-  grid-area: search;
-  display: grid;
-  grid-template-areas: "form button";
-  grid-template-columns: 1fr 10vw;
-}
-
-.searchAgainForm {
-  grid-area: form;
-  width: 400px;
-  margin-right: 20px;
-}
-
-.searchAgainButton {
-  grid-area: button;
 }
 
 .filterDropdown {
-  width: 30%;
-  grid-area: filters;
-  justify-self: center;
+  width: 20%;
 }
 
 .searchAgain {
@@ -47,13 +25,7 @@
 
 
 .cards {
-  margin-top: 10vh;
-}
-
-.noResults {
-  margin-top: 10vh;
-  text-align: center;
-  font-size: 2vw;
+  margin-top: 10vw;
 }
 
 #drink_rating {

@@ -15,7 +15,7 @@ class PlaceReview extends Component {
     this.state = {
       showMenuList: true,
       showMenuReview: false,
-      selectedMenu: "",
+      selectedMenu: "no selected menu",
       dummy: {},
       ourId: '',
       drinkArr: []
@@ -172,7 +172,6 @@ class PlaceReview extends Component {
   }
 
   backButtonPressed(e) {
-    console.log("back");
     this.setState({showMenuList: true});
   }
 
@@ -255,7 +254,7 @@ mapDrinks() {
       return (
         <div id="menuReview">
           <Button onClick = {(e) => realThis.backButtonPressed(e)} className="arrow left icon"> <Icon name = 'angle left' /> MENU </Button>
-          menu review
+          {realThis.state.selectedMenu}
 
         </div>
       );
