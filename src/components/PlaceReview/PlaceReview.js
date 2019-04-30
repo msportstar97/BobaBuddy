@@ -270,7 +270,8 @@ mapDrinks() {
       button = <Link to={{
                 pathname: "/WriteReview",
                 state: {
-                  place: place
+                  place: place,
+                  ourPlaceId: this.state.ourId
                 }}} >
                   <Button id="reviewButton"> Leave a Review </Button>
                 </Link>

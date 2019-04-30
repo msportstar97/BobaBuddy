@@ -61,14 +61,14 @@ class WriteReview extends Component {
     const drinksRef = rootRef.child('drinks');
     console.log(this.props);
     const place = this.props.location.state.place;
-    const ourPlaceId = "PLC-" + this.props.location.state.place.place_id;
+    const ourPlaceId = this.props.location.state.ourPlaceId; //"PLC-" + this.props.location.state.place.place_id;
     var realThis = this;
     console.log('get drinks', ourPlaceId);
 
     // var listOfDrinks = [];
     var arr = [];
 
-    drinksRef.orderByChild('places').equalTo(ourPlaceId).on("value", function(snapshot) {
+    drinksRef.orderByChild('place').equalTo(ourPlaceId).on("value", function(snapshot) {
       console.log('les drinks', snapshot.val());
 
       snapshot.forEach(function(data) {
@@ -76,7 +76,7 @@ class WriteReview extends Component {
         arr.push({
           key: data.val().name,
           value: data.val().name,
-          name: data.val().name,
+          text: data.val().name,
         });
     });
     console.log('arr', arr, realThis.state.menuOptions);
@@ -151,6 +151,8 @@ class WriteReview extends Component {
     const place = this.props.location.state.place;
     // const menuOptions = this.state.menuOptions;
     console.log('the real menu options', this.state.menuOptions);
+    console.log('this place ', this.props.location.state);
+    console.log('t', this.props.location);
 
     const iceOptions = [
       {
