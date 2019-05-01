@@ -8,6 +8,7 @@ $font: 2.5vw;
   grid-template-areas: "titleBox buttons";
   grid-template-columns: 30vw 1fr;
   height: 8vh;
+  position: relative;
 
   .title-box {
     text-decoration: none;
@@ -39,10 +40,31 @@ $font: 2.5vw;
     margin-left: 80%;
   }
 
-  .username{
+  .username {
     grid-area: buttons;
     align-self: center;
     margin-left: 60%;
     font-family: 'Josefin Sans', cursive;
+  }
+
+  .options {
+    display: block;
+    left: auto;
+    top: auto;
+  }
+
+  ul {
+    list-style: none;
+    margin-right: 5vw;
+    position: absolute;
+  }
+  
+  li {
+    padding: 0.5vw;
+  }
+  
+  li:hover {
+    background-color: #d6d6d6;
+    cursor: pointer;
   }
 }

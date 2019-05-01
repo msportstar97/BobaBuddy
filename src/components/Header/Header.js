@@ -14,7 +14,13 @@ class Header extends Component {
       this.props.updatelogin(true)
     }
 
+    this.state = {
+      menu: false
+    };
+
     this.signout = this.signout.bind(this);
+    this.dropdown = this.dropdown.bind(this);
+    this.hide = this.hide.bind(this);
   }
 
   signout(){
@@ -26,15 +32,43 @@ class Header extends Component {
     this.props.updatelogin(false);
    }
 
+  dropdown() {
+    this.setState({
+      menu: !this.state.menu
+    }, () => {
+      document.addEventListener('click', this.hide);
+    });
+  }
+
+  hide(e) {
+    this.setState({
+      menu: false
+    }, () => {
+      document.removeEventListener('click', this.hide);
+    });
+  }
+
   render() {
     const loggedIn = this.props.loggedIn;
     let button;
     let hello;
     if (loggedIn) {
       button = <div className="buttons">
-                <Link to="/">
-                  <Icon id="signout-button" link name='bars' size='big' onClick={() => this.signout()}/>
-                </Link>
+                <Icon id="menu" link name='bars' size='big' 
+                onClick={() => this.dropdown()}/>
+                {
+                  this.state.menu && 
+                  (
+                    <ul className="dropdown-menu options">
+                    <Link to="/Profile">
+                      <li> Profile </li>
+                    </Link>
+                    <Link to="/">
+                      <li onClick={() => this.signout()}> Sign Out </li>
+                    </Link>
+                    </ul>
+                  )
+                }
                </div>
       hello = <div className="username">
               Hello, {firebase.auth().currentUser.email}!
