@@ -4,16 +4,16 @@ self.__precacheManifest = [
     "url": "/BobaBuddy/static/media/icons.faff9214.woff"
   },
   {
-    "revision": "fb8d3ef2f9768630e3db",
-    "url": "/BobaBuddy/static/css/main.e84ffcf4.chunk.css"
+    "revision": "b5bf075bce1f8cec69e6",
+    "url": "/BobaBuddy/static/css/main.519126bc.chunk.css"
   },
   {
     "revision": "c23b9f108dbdba7eff36",
     "url": "/BobaBuddy/static/js/runtime~main.37882be2.js"
   },
   {
-    "revision": "31a0c97fbb5ce81b773eeba2cdd9d0f6",
-    "url": "/BobaBuddy/static/media/gugi-latin-400.31a0c97f.woff"
+    "revision": "a72ad8445f387acff3e496d1136a0f40",
+    "url": "/BobaBuddy/static/media/gugi-latin-400.a72ad844.woff2"
   },
   {
     "revision": "71a8e82b22ea490aa406",
@@ -32,12 +32,12 @@ self.__precacheManifest = [
     "url": "/BobaBuddy/static/media/outline-icons.ef60a4f6.woff"
   },
   {
-    "revision": "9c74e172f87984c48ddf5c8108cabe67",
-    "url": "/BobaBuddy/static/media/flags.9c74e172.png"
-  },
-  {
     "revision": "701ae6abd4719e9c2ada3535a497b341",
     "url": "/BobaBuddy/static/media/outline-icons.701ae6ab.eot"
+  },
+  {
+    "revision": "9c74e172f87984c48ddf5c8108cabe67",
+    "url": "/BobaBuddy/static/media/flags.9c74e172.png"
   },
   {
     "revision": "ad97afd3337e8cda302d10ff5a4026b8",
@@ -48,8 +48,8 @@ self.__precacheManifest = [
     "url": "/BobaBuddy/static/media/icons.0ab54153.woff2"
   },
   {
-    "revision": "fb8d3ef2f9768630e3db",
-    "url": "/BobaBuddy/static/js/main.ed2cb752.chunk.js"
+    "revision": "b5bf075bce1f8cec69e6",
+    "url": "/BobaBuddy/static/js/main.61a061bd.chunk.js"
   },
   {
     "revision": "e8c322de9658cbeb8a774b6624167c2c",
@@ -68,12 +68,12 @@ self.__precacheManifest = [
     "url": "/BobaBuddy/static/media/icons.b87b9ba5.ttf"
   },
   {
-    "revision": "13db00b7a34fee4d819ab7f9838cc428",
-    "url": "/BobaBuddy/static/media/brand-icons.13db00b7.eot"
-  },
-  {
     "revision": "c5ebe0b32dc1b5cc449a76c4204d13bb",
     "url": "/BobaBuddy/static/media/brand-icons.c5ebe0b3.ttf"
+  },
+  {
+    "revision": "13db00b7a34fee4d819ab7f9838cc428",
+    "url": "/BobaBuddy/static/media/brand-icons.13db00b7.eot"
   },
   {
     "revision": "82f60bd0b94a1ed68b1e6e309ce2e8c3",
@@ -88,15 +88,15 @@ self.__precacheManifest = [
     "url": "/BobaBuddy/static/media/brand-icons.a1a749e8.svg"
   },
   {
-    "revision": "a72ad8445f387acff3e496d1136a0f40",
-    "url": "/BobaBuddy/static/media/gugi-latin-400.a72ad844.woff2"
+    "revision": "31a0c97fbb5ce81b773eeba2cdd9d0f6",
+    "url": "/BobaBuddy/static/media/gugi-latin-400.31a0c97f.woff"
   },
   {
     "revision": "71a8e82b22ea490aa406",
     "url": "/BobaBuddy/static/css/2.296d7143.chunk.css"
   },
   {
-    "revision": "3a79953652e2749d4c8fdf00cd469ab5",
+    "revision": "cd1a8a1a9081831b4eaff91bb3780136",
     "url": "/BobaBuddy/index.html"
   }
 ];
