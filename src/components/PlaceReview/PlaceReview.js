@@ -208,7 +208,7 @@ mapDrinks() {
   render() {
     console.log('dummy', this.state.dummy);
 
-    const {place} = this.props.location.state;
+    const {place, search} = this.props.location.state;
 
     var createReactClass = require('create-react-class');
 
@@ -240,7 +240,9 @@ mapDrinks() {
               ${realThis.state.selectedPrice}
             </div>
           <div className = "selectedReview">
-            {realThis.state.selectedReview}
+            {Object.keys(realThis.state.selectedReview).map((review, idx) => 
+              <p key={idx}>{review}</p>
+            )}
           </div>
 
 
@@ -258,6 +260,7 @@ mapDrinks() {
                 pathname: "/WriteReview",
                 state: {
                   place: place,
+                  search: search,
                   ourPlaceId: this.state.ourId
                 }}} >
                   <Button id="reviewButton" > Leave a Review </Button>

@@ -412,7 +412,14 @@ class WriteReview extends Component {
           />
         </Form>
         <div className = "button-row">
-        <Button onClick = {this.handleSubmitReview.bind(this)}> Submit </Button> <Button> Cancel </Button>
+        <Link to={{
+          pathname: "/PlaceReview", 
+          state: {
+            place: this.props.location.state.place,
+            search: this.props.location.state.search
+          }}}>
+          <Button onClick = {this.handleSubmitReview.bind(this)}> Submit </Button> <Button> Cancel </Button>
+        </Link>
         </div>
         </div>
       </div>
