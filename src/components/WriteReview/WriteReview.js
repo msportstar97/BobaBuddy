@@ -73,7 +73,7 @@ class WriteReview extends Component {
       snapshot.forEach(function(data) {
         // console.log('data val', data.val(), data.key);
         arr.push({
-          key: data.val().name,
+          key: data.key,
           value: data.key,
           text: data.val().name,
         });
@@ -144,6 +144,7 @@ class WriteReview extends Component {
       console.log('submit review for', this.state.selectedMenu);
       const rootRef = firebase.database().ref();
       const reviewsRef = rootRef.child('reviews');
+      const drinksRef = rootRef.child('drinks');
       const place = this.props.location.state.place;
       var realThis = this;
       
@@ -171,6 +172,9 @@ class WriteReview extends Component {
 
       // send new review to firebase
       reviewsRef.child(ourReviewId).set(newReview);
+
+      // update drinks array to contain ourReviewId
+      drinksRef.child(ourDrinkId).child('reviews').child(ourReviewId).set(ourReviewId);
     }
     
   }
