@@ -61,7 +61,7 @@ class Search extends Component {
               state: {
                 place: value
               }}} >
-              <Button className="search-button">Search</Button>
+              <Button className = "ui color2 button">Search</Button>
             </Link>
           </div>
         )}>

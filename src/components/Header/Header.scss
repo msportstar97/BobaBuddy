@@ -20,8 +20,8 @@ $font: 2.5vw;
   }
 
   .logo {
-    width: 5vw;
-    height: 8vh;
+    width: 60px;
+    height: 60px;
     margin-left: 3vw;
     padding-top: 1vh;
     padding-bottom: 1vh;
@@ -30,8 +30,10 @@ $font: 2.5vw;
   .title {
     font-family: 'Josefin Sans', cursive;
     align-self: center;
-    font-size: $font;
+    font-size: 25px;
     color: black;
+    margin-top: 1vw;
+    margin-left: 40px;
   }
 
   .buttons {
