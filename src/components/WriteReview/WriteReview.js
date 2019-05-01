@@ -59,27 +59,26 @@ class WriteReview extends Component {
     const rootRef = firebase.database().ref();
     const placesRef = rootRef.child('places');
     const drinksRef = rootRef.child('drinks');
-    console.log(this.props);
     const place = this.props.location.state.place;
     const ourPlaceId = this.props.location.state.ourPlaceId; //"PLC-" + this.props.location.state.place.place_id;
     var realThis = this;
-    console.log('get drinks', ourPlaceId);
+    // console.log('get drinks', ourPlaceId);
 
     // var listOfDrinks = [];
     var arr = [];
 
     drinksRef.orderByChild('place').equalTo(ourPlaceId).on("value", function(snapshot) {
-      console.log('les drinks', snapshot.val());
+      // console.log('les drinks', snapshot.val());
 
       snapshot.forEach(function(data) {
-        console.log('data val', data.val());
+        // console.log('data val', data.val(), data.key);
         arr.push({
           key: data.val().name,
-          value: data.val().name,
+          value: data.key,
           text: data.val().name,
         });
     });
-    console.log('arr', arr, realThis.state.menuOptions);
+    // console.log('arr', arr, realThis.state.menuOptions);
     realThis.setState({
       menuOptions: arr,
     });
@@ -142,17 +141,47 @@ class WriteReview extends Component {
 
     else {
       //submit review
+      console.log('submit review for', this.state.selectedMenu);
+      const rootRef = firebase.database().ref();
+      const reviewsRef = rootRef.child('reviews');
+      const place = this.props.location.state.place;
+      var realThis = this;
+      
+      const ourDrinkId = this.state.selectedMenu;
+      const ourPlaceId = this.props.location.state.ourPlaceId; //"PLC-" + this.props.location.state.place.place_id;
+      // rating goes here
+      const ourOptions = {
+        size: this.state.selectedSize,
+        ice: this.state.selectedIce,
+        sugar: this.state.selectedSugar,
+        toppings: this.state.selectedTopping
+      }
+      const ourDescription = this.state.additionalReview;
 
+      // make new review 
+      var newReviewRef = reviewsRef.push();
+      const ourReviewId = "RVW" + newReviewRef.key;
+      var newReview = {
+        drinkId: ourDrinkId,
+        placeId: ourPlaceId,
+        options: ourOptions,
+        rating: 5,
+        description: ourDescription,
+      }
+
+      // send new review to firebase
+      reviewsRef.child(ourReviewId).set(newReview);
     }
+    
   }
 
 
   render() {
     const place = this.props.location.state.place;
     // const menuOptions = this.state.menuOptions;
-    console.log('the real menu options', this.state.menuOptions);
-    console.log('this place ', this.props.location.state);
-    console.log('t', this.props.location);
+    // console.log('the real menu options', this.state.menuOptions);
+    // console.log('this place ', this.props.location.state);
+    // console.log('t', this.props.location);
 
     const iceOptions = [
       {

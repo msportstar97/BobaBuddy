@@ -42,7 +42,7 @@ class PlaceReview extends Component {
     // let's check for dupes first!
     // var isDupe = false;
     placesRef.orderByChild('placeId').equalTo(place.id).on('value', function(snapshot) {
-      console.log('snapshot', snapshot.val());
+      // console.log('snapshot', snapshot.val());
       var count = 0;
       if (snapshot.exists() && count === 0) {
         count++;
@@ -53,7 +53,7 @@ class PlaceReview extends Component {
         // ourPlaceId = snapshot.val();
         // isDupe = true;
 
-        console.log('our place id', ourPlaceId);
+        // console.log('our place id', ourPlaceId);
 
         // view firebase db
         if (realThis._isMounted) {
@@ -84,7 +84,7 @@ class PlaceReview extends Component {
         // send new place object to firebase
         placesRef.child(ourPlaceId).set(newPlace);
 
-        console.log('our place id', ourPlaceId);
+        // console.log('our place id', ourPlaceId);
 
         // view firebase db
         if (realThis._isMounted) {
@@ -207,7 +207,7 @@ mapDrinks() {
 
   render() {
     console.log('dummy', this.state.dummy);
-    console.log('dummy', this.state.dummy.drinks);
+
     const {place} = this.props.location.state;
 
     var createReactClass = require('create-react-class');
