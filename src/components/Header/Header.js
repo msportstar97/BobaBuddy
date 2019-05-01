@@ -71,10 +71,10 @@ class Header extends Component {
                 }
                </div>
       hello = <div className="username">
-              {firebase.auth().currentUser.email}!
+              {firebase.auth().currentUser.email}
               </div>
     } else {
-      button = <div className="buttons">
+      button = <div className="userProfile">
                 <Link to="/Login">
                   <Button id="login-button" basic color='black'> Log In </Button>
                 </Link>
