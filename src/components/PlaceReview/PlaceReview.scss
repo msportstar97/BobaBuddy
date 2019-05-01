@@ -41,7 +41,23 @@
   position: absolute;
 }
 
+#goBackMenuButton {
+  background-color: #9EDEE1;
+  color: #fff;
+
+}
+
+#goBackMenuButton:hover {
+  background-color: #80C6C9 !important;
+  color: #fff!important;
+}
+
 #reviewButton:hover {
   background-color: #80C6C9 !important;
   color: #fff!important;
+}
+
+.selectedMenu {
+  font-size: 20px;
+  margin-top: 30px;
 }
