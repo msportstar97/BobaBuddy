@@ -16,6 +16,8 @@ class PlaceReview extends Component {
       showMenuList: true,
       showMenuReview: false,
       selectedMenu: "no selected menu",
+      selectedReview: [],
+      selectedPrice: 0,
       dummy: {},
       ourId: '',
       drinkArr: []
@@ -166,13 +168,18 @@ class PlaceReview extends Component {
   }
 
   handleMenu(e) {
-    console.log(e.target.value);
-    this.setState({selectedMenu: e.target.value});
+    let drinkArr = this.state.dummy.drinks;
+    console.log(drinkArr[e.target.value].reviews);
+
+    this.setState({selectedMenu: drinkArr[e.target.value].name});
+    this.setState({selectedPrice: drinkArr[e.target.value].price});
+    this.setState({selectedReview: drinkArr[e.target.value].reviews});
     this.setState({showMenuList: false});
   }
 
   backButtonPressed(e) {
     this.setState({showMenuList: true});
+    console.log(this.state.selectedReview);
   }
 
 mapDrinks() {
@@ -183,7 +190,7 @@ mapDrinks() {
     let drinkArr = this.state.dummy.drinks;
     let buffer = []
     for (var key in drinkArr) {
-          buffer.push(<Button className = "singleMenu" value = {drinkArr[key].name} onClick = {(e) => this.handleMenu(e)}> {drinkArr[key].name} {"$" + drinkArr[key].price}</Button>);
+          buffer.push(<Button basic color='grey' className = "singleMenu" value = {key} onClick = {(e) => this.handleMenu(e)}> {drinkArr[key].name} {"$" + drinkArr[key].price} </Button>);
     //     }
     // console.log(Object.keys(this.state.dummy.drinks))
     //   return Object.keys(this.state.dummy.drinks).map((key, index) =>
@@ -254,7 +261,14 @@ mapDrinks() {
       return (
         <div id="menuReview">
           <Button onClick = {(e) => realThis.backButtonPressed(e)} className="arrow left icon"> <Icon name = 'angle left' /> MENU </Button>
-          {realThis.state.selectedMenu}
+          <div className = "selectedMenu">
+            {realThis.state.selectedMenu}
+            <span id = "selectedPrice"> ${realThis.state.selectedPrice} </span>
+            </div>
+          <div className = "selectedReview">
+            {realThis.state.selectedReview}
+          </div>
+
 
         </div>
       );
