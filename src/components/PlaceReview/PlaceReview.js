@@ -167,13 +167,14 @@ class PlaceReview extends Component {
     this._isMounted = false;
   }
 
-  handleMenu(e) {
-    let drinkArr = this.state.dummy.drinks;
-    console.log(drinkArr[e.target.value].reviews);
+  handleMenu(e, {value}) {
+    //let drinkArr = this.state.dummy.drinks;
+    console.log(value);
 
-    this.setState({selectedMenu: drinkArr[e.target.value].name});
-    this.setState({selectedPrice: drinkArr[e.target.value].price});
-    this.setState({selectedReview: drinkArr[e.target.value].reviews});
+
+    this.setState({selectedMenu: value.name});
+    this.setState({selectedPrice: value.price});
+    this.setState({selectedReview: value.reviews});
     this.setState({showMenuList: false});
   }
 
@@ -190,7 +191,7 @@ mapDrinks() {
     let drinkArr = this.state.dummy.drinks;
     let buffer = []
     for (var key in drinkArr) {
-          buffer.push(<Button basic color='grey' className = "singleMenu" value = {key} onClick = {(e) => this.handleMenu(e)}> {drinkArr[key].name} {"$" + drinkArr[key].price} </Button>);
+          buffer.push(<div className = "menuRow"> <Button basic color='grey' className = "singleMenu" value = {drinkArr[key]} onClick = {(e, {value}) => this.handleMenu(e, {value}, {drinkArr})}> <p className = "drinkName"> {drinkArr[key].name} </p> <p className = "drinkDetails">{"$" + drinkArr[key].price} </p></Button> </div>);
     //     }
     // console.log(Object.keys(this.state.dummy.drinks))
     //   return Object.keys(this.state.dummy.drinks).map((key, index) =>
@@ -202,35 +203,6 @@ mapDrinks() {
     return buffer;
   }
 }
-  // mapDrinks() {
-  //   if (this.state.dummy == undefined) {
-  //     return <li> no menu </li>
-  //   }
-  //
-  //   else {
-  //     let drinkArr = this.state.dummy.drinks
-  //     for (var key in drinkArr) {
-  //       <div className = "singleMenu"> {drinkArr[key].name} </div>
-  //     }
-  //
-  //     let returnVal = [];
-  //     returnVal.push(drinkArr);
-  //     console.log(drinkArr)
-  //     console.log(typeof drinkArr)
-  //     // for (let i = 0; i < drinkArr.length; i++) {
-  //     //
-  //     // }
-  //     // drinkArr.map(function(item, i) {
-  //     //   if (item != undefined) {
-  //     //     console.log(item);
-  //     //     returnVal.push(item);
-  //     //   }
-  //     //
-  //     // })
-  //
-  //     return <p> "hi"</p>;
-  //   }
-  // }
 
 
   render() {
@@ -286,7 +258,7 @@ mapDrinks() {
                   place: place,
                   ourPlaceId: this.state.ourId
                 }}} >
-                  <Button id="reviewButton"> Leave a Review </Button>
+                  <Button id="reviewButton" > Leave a Review </Button>
                 </Link>
     } else {
       button = <p className="reviewLog"> Log in to leave a review </p>;
@@ -299,12 +271,12 @@ mapDrinks() {
                    state: {
                      place: this.props.location.state.search
                    }}} >
-                   <Button id="goBack">Go Back</Button>
+                   <Button id="goBack"><Icon name='left arrow' />Go Back</Button>
                  </Link>
         <div className = "placeInfo">
-          <p> {place.name} </p>
+          <p className = "placeInfoRow"> <span id = "placeName"> {place.name} </span> {button}</p>
           <p> {place.rating} </p>
-          {button}
+
         </div>
 
         <div className = "menuInfo">

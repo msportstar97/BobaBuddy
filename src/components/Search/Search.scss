@@ -16,6 +16,12 @@
   margin-right: 20px;
 }
 
-.search-button {
-  grid-area: button;
+.ui.color2.button {
+  background-color: #9EDEE1;
+  color: #fff;
+}
+
+.ui.color2.button:hover {
+  background-color: #80C6C9 !important;
+  color: #fff!important;
 }

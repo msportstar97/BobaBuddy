@@ -37,7 +37,7 @@ class Header extends Component {
                 </Link>
                </div>
       hello = <div className="username">
-              Hello, {firebase.auth().currentUser.email}!
+              {firebase.auth().currentUser.email}!
               </div>
     } else {
       button = <div className="buttons">
@@ -53,7 +53,7 @@ class Header extends Component {
       <div className="Header">
         <Link to="/" className="title-box">
           <img src={require('./logo.png')} className="logo"></img>
-          <div className="title"> Boba Buddy </div>
+          <span className="title"> Boba Buddy </span>
         </Link>
         {hello}
         {button}
