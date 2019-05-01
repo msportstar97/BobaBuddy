@@ -191,7 +191,7 @@ mapDrinks() {
     let drinkArr = this.state.dummy.drinks;
     let buffer = []
     for (var key in drinkArr) {
-          buffer.push(<div className = "menuRow"> <Button basic color='grey' className = "singleMenu" value = {drinkArr[key]} onClick = {(e, {value}) => this.handleMenu(e, {value}, {drinkArr})}> <p className = "drinkName"> {drinkArr[key].name} </p> <p className = "drinkDetails">{"$" + drinkArr[key].price} </p></Button> </div>);
+          buffer.push(<div className = "menuRow" key={key}> <Button basic color='grey' className = "singleMenu" value = {drinkArr[key]} onClick = {(e, {value}) => this.handleMenu(e, {value}, {drinkArr})}> <p className = "drinkName"> {drinkArr[key].name} </p> <p className = "drinkDetails">{"$" + drinkArr[key].price} </p></Button> </div>);
     //     }
     // console.log(Object.keys(this.state.dummy.drinks))
     //   return Object.keys(this.state.dummy.drinks).map((key, index) =>
