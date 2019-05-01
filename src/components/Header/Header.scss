@@ -5,7 +5,7 @@ $font: 2.5vw;
   width: 100%;
   background-color: #c7e9eb;
   display: grid;
-  grid-template-areas: "titleBox buttons";
+  grid-template-areas: "titleBox userProfile";
   grid-template-columns: 30vw 1fr;
   height: 8vh;
   position: relative;
@@ -25,6 +25,7 @@ $font: 2.5vw;
     margin-left: 3vw;
     padding-top: 1vh;
     padding-bottom: 1vh;
+    margin-bottom: 1vw;
   }
 
   .title {
@@ -32,21 +33,27 @@ $font: 2.5vw;
     align-self: center;
     font-size: 25px;
     color: black;
-    margin-top: 1vw;
     margin-left: 40px;
+  }
+
+  .userProfile {
+    grid-area: userProfile;
+    align-self: center;
+    display: grid;
+    grid-template-areas: "username buttons";
+    grid-template-columns: 1fr 10vw;
+  }
+
+  .username {
+    grid-area: username;
+    align-self: center;
+    justify-self: end;
+    margin-right: 2vw;
+    font-family: 'Josefin Sans', cursive;
   }
 
   .buttons {
     grid-area: buttons;
-    align-self: center;
-    margin-left: 80%;
-  }
-
-  .username {
-    grid-area: buttons;
-    align-self: center;
-    margin-left: 60%;
-    font-family: 'Josefin Sans', cursive;
   }
 
   .options {

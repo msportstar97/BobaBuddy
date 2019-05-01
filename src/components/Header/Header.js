@@ -89,8 +89,10 @@ class Header extends Component {
           <img src={require('./logo.png')} className="logo"></img>
           <span className="title"> Boba Buddy </span>
         </Link>
-        {hello}
-        {button}
+        <div className="userProfile">
+          {hello}
+          {button}
+        </div>
       </div>
      );
    }
