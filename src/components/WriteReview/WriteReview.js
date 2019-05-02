@@ -163,13 +163,12 @@ class WriteReview extends Component {
       
       const ourDrinkId = this.state.selectedMenu;
       const ourPlaceId = this.props.location.state.ourPlaceId; //"PLC-" + this.props.location.state.place.place_id;
-      // rating goes here
+      const ourRating = this.state.selectedRating;
       const ourOptions = {
         size: this.state.selectedSize,
         ice: this.state.selectedIce,
         sugar: this.state.selectedSugar,
         toppings: this.state.selectedTopping,
-        rating: this.state.selectedRating
       }
       const ourDescription = this.state.additionalReview;
 
@@ -180,7 +179,7 @@ class WriteReview extends Component {
         drinkId: ourDrinkId,
         placeId: ourPlaceId,
         options: ourOptions,
-        rating: ourOptions,
+        rating: ourRating,
         description: ourDescription,
       }
 
