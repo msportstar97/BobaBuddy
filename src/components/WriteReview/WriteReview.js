@@ -40,16 +40,19 @@ class WriteReview extends Component {
       selectedIce: "",
       selectedSugar: "",
       selectedTopping: [],
+      selectedRating: "",
       additionalReview: "",
       menuOC: 0,
       sizeOC: 0,
       iceOC: 0,
       sugarOC: 0,
       toppingOC: 0,
+      ratingOC: 0,
       showMenuWarning: false,
       showSizeWarning: false,
       showIceWarning: false,
-      showSugarWarning: false
+      showSugarWarning: false,
+      showRatingWarning: false
     }
 
     this.handleMenuSelection = this.handleMenuSelection.bind(this);
@@ -118,6 +121,12 @@ class WriteReview extends Component {
     this.setState({toppingOC: this.state.toppingOC + 1})
   }
 
+  handleRatingSelection = (e, {value}) => {
+    this.setState({selectedRating: value});
+    this.setState({ratingOC: this.state.ratingOC + 1})
+    this.setState({showRatingWarning: false});
+  }
+
   handleAdditionalReview = (e, {value}) => {
     this.setState({additionalReview: value})
   }
@@ -138,6 +147,10 @@ class WriteReview extends Component {
       console.log("invalid sugar")
       this.setState({showSugarWarning: true});
     }
+    if (this.state.ratingOC === 0) {
+      console.log("invalid rating")
+      this.setState({showRatingWarning: true});
+    }
 
     else {
       //submit review
@@ -155,7 +168,8 @@ class WriteReview extends Component {
         size: this.state.selectedSize,
         ice: this.state.selectedIce,
         sugar: this.state.selectedSugar,
-        toppings: this.state.selectedTopping
+        toppings: this.state.selectedTopping,
+        rating: this.state.selectedRating
       }
       const ourDescription = this.state.additionalReview;
 
@@ -166,7 +180,7 @@ class WriteReview extends Component {
         drinkId: ourDrinkId,
         placeId: ourPlaceId,
         options: ourOptions,
-        rating: 5,
+        rating: ourOptions,
         description: ourDescription,
       }
 
@@ -343,6 +357,34 @@ class WriteReview extends Component {
       }
     ];
 
+    const ratingOptions = [
+      {
+        key: "1",
+        value: "1",
+        text: "1"
+      },
+      {
+        key: "2",
+        value: "2",
+        text: "2"
+      },
+      {
+        key: "3",
+        value: "3",
+        text: "3"
+      },
+      {
+        key: "4",
+        value: "4",
+        text: "4"
+      },
+      {
+        key: "5",
+        value: "5",
+        text: "5"
+      }
+    ];
+
     var Warning = createReactClass({
       render: function() {
       return (
@@ -407,6 +449,15 @@ class WriteReview extends Component {
           search
           options={toppingOptions}
           onChange={(e, { value }) => this.handleToppingSelection(e, { value })}
+        />
+        Rating *
+        { this.state.showRatingWarning ? <Warning /> : null }
+        <Dropdown className = "dropdown"
+          placeholder='Rating'
+          fluid
+          selection
+          options={ratingOptions}
+          onChange={(e, { value }) => this.handleRatingSelection(e, { value })}
         />
         <Form>
           <Form.TextArea label='Additional Review'
