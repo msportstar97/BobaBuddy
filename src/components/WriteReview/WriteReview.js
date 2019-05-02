@@ -175,6 +175,9 @@ class WriteReview extends Component {
 
       // update drinks array to contain ourReviewId
       drinksRef.child(ourDrinkId).child('reviews').child(ourReviewId).set(ourReviewId);
+
+      // update user.reviews to contain ourReviewId
+      rootRef.child('users').child(firebase.auth().currentUser.uid).child('reviews').child(ourReviewId).set(ourReviewId);
     }
     
   }

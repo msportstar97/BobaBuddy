@@ -207,6 +207,7 @@ mapDrinks() {
 
   render() {
     console.log('dummy', this.state.dummy);
+    // console.log('user', firebase.auth().currentUser);
 
     const {place, search} = this.props.location.state;
 
