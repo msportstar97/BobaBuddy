@@ -173,7 +173,6 @@ class Results extends Component {
   }
 
    render() {
-     console.log(this.props.location);
      let {query, value} = this.state;
      const drinkOptions = [
        {

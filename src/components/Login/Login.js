@@ -75,8 +75,16 @@ class Login extends Component {
     
    render() {
      if (this.state.redirect) {
+       console.log(this.props.state);
        return (
          <Redirect to='/Profile'/>
+        //  <Link to={{
+        //   pathname: "/Results/" + value,
+        //   state: {
+        //     place: value
+        //   }}} >
+        //   <Button className = "ui color2 button">Search</Button>
+        // </Link>
        )
      }
      let errorMessage = <p></p>

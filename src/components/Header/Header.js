@@ -74,8 +74,13 @@ class Header extends Component {
               {firebase.auth().currentUser.email}
               </div>
     } else {
+      console.log("route");
       button = <div className="userProfile">
-                <Link to="/Login">
+                <Link to={{
+                  pathname: "/Login",
+                  state: {
+                    route: window.location.hash
+                  }}} >
                   <Button id="login-button" basic color='black'> Log In </Button>
                 </Link>
                 <Link to="/Signup">
