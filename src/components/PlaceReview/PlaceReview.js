@@ -240,8 +240,8 @@ mapDrinks() {
               ${realThis.state.selectedPrice}
             </div>
           <div className = "selectedReview">
-            {Object.keys(realThis.state.selectedReview).map((review, idx) => 
-              <p key={idx}>{review}</p>
+            {Object.keys(realThis.state.selectedReview).map((review, idx) =>
+              <p key={idx}>{realThis.state.selectedReview[idx]}</p>
             )}
           </div>
 
