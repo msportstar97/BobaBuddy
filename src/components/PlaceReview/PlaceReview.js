@@ -15,6 +15,7 @@ class PlaceReview extends Component {
     this.state = {
       showMenuList: true,
       showMenuReview: false,
+      selectedId: "",
       selectedMenu: "no selected menu",
       selectedReview: [],
       selectedPrice: 0,
@@ -110,18 +111,6 @@ class PlaceReview extends Component {
     var placeId = inPlaceId;
     var drinksRef = firebase.database().ref("drinks");
 
-    // var newDrinkRef = drinksRef.push();
-    // const ourDrinkId = "DRK" + newDrinkRef.key;
-
-    // var oolong = {
-    //     name: "Oolong Milk Tea",
-    //     price: 3.29,
-    //     place: placeId,
-    //     reviews: ["init"]
-    // }
-
-    // drinksRef.child(ourDrinkId).set(oolong);
-
     var oolong = {
             name: "Oolong Milk Tea",
             price: 3.29,
@@ -167,15 +156,28 @@ class PlaceReview extends Component {
     this._isMounted = false;
   }
 
-  handleMenu(e, {value}) {
-    //let drinkArr = this.state.dummy.drinks;
-    console.log(value);
+  handleMenu(e, {value}, {drinkArr}) {
+    var realThis = this; 
+    let revArr = {};
+    console.log('click review', e, value, drinkArr);
 
+    firebase.database().ref().child('reviews').orderByChild('drinkId').equalTo(value[0]).on('value', function(snapshot) {
+      if (snapshot.exists()) {
+        snapshot.forEach(function(data) {
+          revArr[data.key] = data.val();
+          
+        });
+      }
 
-    this.setState({selectedMenu: value.name});
-    this.setState({selectedPrice: value.price});
-    this.setState({selectedReview: value.reviews});
-    this.setState({showMenuList: false});
+      console.log('revArr', revArr);
+
+      realThis.setState({
+        selectedMenu: value[1].name,
+        selectedPrice: value[1].price,
+        selectedReview: revArr,
+        showMenuList: false
+      });
+    })
   }
 
   backButtonPressed(e) {
@@ -184,22 +186,47 @@ class PlaceReview extends Component {
   }
 
 mapDrinks() {
-  if (this.state.dummy == undefined || this.state.dummy == null) {
+  if (this.state.dummy === undefined || this.state.dummy === null) {
       return <li> no menu </li>
   }
   else {
     let drinkArr = this.state.dummy.drinks;
-    let buffer = []
-    for (var key in drinkArr) {
-          buffer.push(<div className = "menuRow" key={key}> <Button basic color='grey' className = "singleMenu" value = {drinkArr[key]} onClick = {(e, {value}) => this.handleMenu(e, {value}, {drinkArr})}> <p className = "drinkName"> {drinkArr[key].name} </p> <p className = "drinkDetails">{"$" + drinkArr[key].price} </p></Button> </div>);
-    //     }
-    // console.log(Object.keys(this.state.dummy.drinks))
-    //   return Object.keys(this.state.dummy.drinks).map((key, index) =>
-    //       <Button value = {key} onClick = {(e) => this.handleMenu(e)} className = "singleMenu">
-    //       {this.state.dummy.drinks[key].name} </Button>
-    //     );
-    //   return <li> no menu </li>
-    }
+    // let drinkArr = {};
+    let buffer = [];
+
+    // // init drinkArr
+    // // let drinkArr = {};
+    // firebase.database().ref().child('drinks').orderByChild('place').equalTo(this.state.ourId).on('value', function(snapshot) {
+    //   if (snapshot.exists()) {
+    //     snapshot.forEach(function(data) {
+    //       drinkArr[data.key] = data.val();
+    //       buffer.push(
+    //         <div className = "menuRow" key={data.key}> 
+    //         <Button basic color='grey' className = "singleMenu" value = {drinkArr[data.key]} onClick = {(e, {value}) => this.handleMenu(e, {value}, {drinkArr})}> 
+    //           <p className = "drinkName"> {drinkArr[data.key].name} </p> 
+    //           <p className = "drinkDetails">{"$" + drinkArr[data.key].price} </p>
+    //           </Button> 
+    //           </div>);
+    //     })
+    //   }
+
+      for (var key in drinkArr) {
+        if (drinkArr[key].place === this.state.ourId)
+                buffer.push(
+                <div className = "menuRow" key={key}> 
+                <Button basic color='grey' className = "singleMenu" value = {[key, drinkArr[key]]} onClick = {(e, {value}) => 
+                  this.handleMenu(e, {value}, {drinkArr})}> 
+                  <p className = "drinkName"> {drinkArr[key].name} </p> 
+                  <p className = "drinkDetails">{"$" + drinkArr[key].price} </p>
+                  </Button> 
+                  </div>);
+        }
+        console.log('buffer', buffer);
+      
+
+    // })
+
+
     return buffer;
   }
 }
@@ -242,7 +269,15 @@ mapDrinks() {
             </div>
           <div className = "selectedReview">
             {Object.keys(realThis.state.selectedReview).map((review, idx) =>
-              <p key={idx}>{realThis.state.selectedReview[idx]}</p>
+              // <p key={idx}>{realThis.state.selectedReview[idx]}</p>
+              <p key={idx}>
+              Rating: {realThis.state.selectedReview[review].rating} <br/>
+              Size: {realThis.state.selectedReview[review].options.size} <br/>
+              Ice: {realThis.state.selectedReview[review].options.ice} <br/>
+              Sugar: {realThis.state.selectedReview[review].options.sugar} <br/>
+              Toppings: {realThis.state.selectedReview[review].options.toppings} <br/>
+              Review: {realThis.state.selectedReview[review].description} <br/>
+              </p>
             )}
           </div>
 
