@@ -22,7 +22,8 @@ class PlaceReview extends Component {
       selectedPrice: 0,
       dummy: {},
       ourId: '',
-      drinkArr: []
+      drinkArr: [],
+      selectedRating: null
     }
 
     this.handleMenu = this.handleMenu.bind(this);
@@ -160,23 +161,45 @@ class PlaceReview extends Component {
   handleMenu(e, {value}, {drinkArr}) {
     var realThis = this;
     let revArr = {};
+    let totalRating = 0;
+    let avgRating = -1;
+    let keyNum = 0;
     console.log('click review', e, value, drinkArr);
 
     firebase.database().ref().child('reviews').orderByChild('drinkId').equalTo(value[0]).on('value', function(snapshot) {
       if (snapshot.exists()) {
         snapshot.forEach(function(data) {
           revArr[data.key] = data.val();
-
         });
       }
 
       console.log('revArr', revArr);
+      for (var key in revArr) {
+        keyNum += 1;
+        console.log(key)
+        totalRating += revArr[key].rating
+      }
+      console.log(totalRating);
+      if (keyNum > 0) {
+        avgRating = totalRating / keyNum;
+      }
+      console.log(avgRating)
+      // if (revArr.length >= 1) {
+      //   for (var i = 0; i < revArr.length; i++) {
+      //     totalRating += revArr[i].rating
+      //   }
+      //
+      //   avgRating = totalRating / revArr.length;
+      //   console.log(avgRating);
+      // }
+
 
       realThis.setState({
         selectedMenu: value[1].name,
         selectedPrice: value[1].price,
         selectedReview: revArr,
-        showMenuList: false
+        showMenuList: false,
+        selectedRating: avgRating
       });
     })
   }
@@ -256,7 +279,8 @@ mapToppings(tArr) {
             {realThis.state.selectedMenu}
             </div>
             <div className = "selectedDetails">
-              ${realThis.state.selectedPrice}
+              ${realThis.state.selectedPrice} <br/>
+              {realThis.state.selectedRating}
             </div>
           <div className = "selectedReview">
             {Object.keys(realThis.state.selectedReview).map((review, idx) =>
