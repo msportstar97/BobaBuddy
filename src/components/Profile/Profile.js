@@ -8,7 +8,7 @@ import * as firebase from 'firebase';
 class Profile extends Component {
   constructor(props){
     super(props);
-    
+
     this.state = {
         oldPassword: '',
         newPassword: '',
@@ -46,7 +46,7 @@ class Profile extends Component {
 
   changePassword() {
     var user = firebase.auth().currentUser;
-    
+
     var credential = firebase.auth.EmailAuthProvider.credential(
       user.email,
       this.state.oldPassword
@@ -79,25 +79,25 @@ class Profile extends Component {
     let dbuser = {};
     let reviews;
     var realThis = this;
-    user = firebase.auth().currentUser.email;
-    uref = firebase.database().ref().child('users');
-    uref.orderByChild('email').equalTo(user).on('value', function(snapshot){
-        if (snapshot.exists()){
-            snapshot.forEach(function(data) {
-                dbuser[data.key] = data.val;
-            });
-        }
-        
-        realThis.setState({
-            userReviews: dbuser.reviews
-        })
-        
-        for (var i = 0; i < realThis.userReviews.length; i++){
-            
-        }
-        
-    });
-    
+    // user = firebase.auth().currentUser.email;
+    // uref = firebase.database().ref().child('users');
+    // uref.orderByChild('email').equalTo(user).on('value', function(snapshot){
+    //     if (snapshot.exists()){
+    //         snapshot.forEach(function(data) {
+    //             dbuser[data.key] = data.val;
+    //         });
+    //     }
+    //
+    //     realThis.setState({
+    //         userReviews: dbuser.reviews
+    //     })
+    //
+    //     for (var i = 0; i < realThis.userReviews.length; i++){
+    //
+    //     }
+    //
+    // });
+
     if (this.state.message) {
       errorMessage = <p className="errorMessage"> {this.state.message} </p>
     }
@@ -128,7 +128,7 @@ class Profile extends Component {
         </div>
         <h2 className="profileTitle"> Your Reviews </h2>
         <div className="yourReviews">
-        
+
         </div>
       </div>
     );

@@ -164,11 +164,16 @@ class WriteReview extends Component {
       const ourDrinkId = this.state.selectedMenu;
       const ourPlaceId = this.props.location.state.ourPlaceId; //"PLC-" + this.props.location.state.place.place_id;
       const ourRating = this.state.selectedRating;
+      let finalSelectedTopping = this.state.selectedTopping;
+      if (this.state.selectedTopping.includes("no topping") && this.state.selectedTopping.length != 1) {
+        finalSelectedTopping.splice(finalSelectedTopping.indexOf("no topping"), 1);
+        console.log(finalSelectedTopping);
+      }
       const ourOptions = {
         size: this.state.selectedSize,
         ice: this.state.selectedIce,
         sugar: this.state.selectedSugar,
-        toppings: this.state.selectedTopping,
+        toppings: finalSelectedTopping,
       }
       const ourDescription = this.state.additionalReview;
 
