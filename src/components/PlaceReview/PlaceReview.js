@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { Button, Icon } from 'semantic-ui-react'
 import createReactClass from 'create-react-class';
 import * as firebase from 'firebase';
+import StarRatings from 'react-star-ratings';
 
 class PlaceReview extends Component {
   _isMounted = false;
@@ -21,7 +22,8 @@ class PlaceReview extends Component {
       selectedPrice: 0,
       dummy: {},
       ourId: '',
-      drinkArr: []
+      drinkArr: [],
+      selectedRating: null
     }
 
     this.handleMenu = this.handleMenu.bind(this);
@@ -157,25 +159,47 @@ class PlaceReview extends Component {
   }
 
   handleMenu(e, {value}, {drinkArr}) {
-    var realThis = this; 
+    var realThis = this;
     let revArr = {};
+    let totalRating = 0;
+    let avgRating = -1;
+    let keyNum = 0;
     console.log('click review', e, value, drinkArr);
 
     firebase.database().ref().child('reviews').orderByChild('drinkId').equalTo(value[0]).on('value', function(snapshot) {
       if (snapshot.exists()) {
         snapshot.forEach(function(data) {
           revArr[data.key] = data.val();
-          
         });
       }
 
       console.log('revArr', revArr);
+      for (var key in revArr) {
+        keyNum += 1;
+        console.log(key)
+        totalRating += revArr[key].rating
+      }
+      console.log(totalRating);
+      if (keyNum > 0) {
+        avgRating = totalRating / keyNum;
+      }
+      console.log(avgRating)
+      // if (revArr.length >= 1) {
+      //   for (var i = 0; i < revArr.length; i++) {
+      //     totalRating += revArr[i].rating
+      //   }
+      //
+      //   avgRating = totalRating / revArr.length;
+      //   console.log(avgRating);
+      // }
+
 
       realThis.setState({
         selectedMenu: value[1].name,
         selectedPrice: value[1].price,
         selectedReview: revArr,
-        showMenuList: false
+        showMenuList: false,
+        selectedRating: avgRating
       });
     })
   }
@@ -194,41 +218,31 @@ mapDrinks() {
     // let drinkArr = {};
     let buffer = [];
 
-    // // init drinkArr
-    // // let drinkArr = {};
-    // firebase.database().ref().child('drinks').orderByChild('place').equalTo(this.state.ourId).on('value', function(snapshot) {
-    //   if (snapshot.exists()) {
-    //     snapshot.forEach(function(data) {
-    //       drinkArr[data.key] = data.val();
-    //       buffer.push(
-    //         <div className = "menuRow" key={data.key}> 
-    //         <Button basic color='grey' className = "singleMenu" value = {drinkArr[data.key]} onClick = {(e, {value}) => this.handleMenu(e, {value}, {drinkArr})}> 
-    //           <p className = "drinkName"> {drinkArr[data.key].name} </p> 
-    //           <p className = "drinkDetails">{"$" + drinkArr[data.key].price} </p>
-    //           </Button> 
-    //           </div>);
-    //     })
-    //   }
-
       for (var key in drinkArr) {
         if (drinkArr[key].place === this.state.ourId)
                 buffer.push(
-                <div className = "menuRow" key={key}> 
-                <Button basic color='grey' className = "singleMenu" value = {[key, drinkArr[key]]} onClick = {(e, {value}) => 
-                  this.handleMenu(e, {value}, {drinkArr})}> 
-                  <p className = "drinkName"> {drinkArr[key].name} </p> 
+                <div className = "menuRow" key={key}>
+                <Button basic color='grey' className = "singleMenu" value = {[key, drinkArr[key]]} onClick = {(e, {value}) =>
+                  this.handleMenu(e, {value}, {drinkArr})}>
+                  <p className = "drinkName"> {drinkArr[key].name} </p>
                   <p className = "drinkDetails">{"$" + drinkArr[key].price} </p>
-                  </Button> 
+                  </Button>
                   </div>);
         }
         console.log('buffer', buffer);
-      
-
-    // })
-
 
     return buffer;
   }
+}
+
+mapToppings(tArr) {
+  let tBuffer = ""
+  for (var i = 0; i < tArr.length -1; i++) {
+    tBuffer +=  tArr[i] + ", "
+  }
+  tBuffer += tArr[tArr.length -1];
+  console.log(tBuffer)
+  return tBuffer;
 }
 
 
@@ -265,19 +279,29 @@ mapDrinks() {
             {realThis.state.selectedMenu}
             </div>
             <div className = "selectedDetails">
-              ${realThis.state.selectedPrice}
+              ${realThis.state.selectedPrice} <br/>
+              Average Rating: {realThis.state.selectedRating}
             </div>
           <div className = "selectedReview">
             {Object.keys(realThis.state.selectedReview).map((review, idx) =>
               // <p key={idx}>{realThis.state.selectedReview[idx]}</p>
-              <p key={idx}>
-              Rating: {realThis.state.selectedReview[review].rating} <br/>
-              Size: {realThis.state.selectedReview[review].options.size} <br/>
-              Ice: {realThis.state.selectedReview[review].options.ice} <br/>
-              Sugar: {realThis.state.selectedReview[review].options.sugar} <br/>
-              Toppings: {realThis.state.selectedReview[review].options.toppings} <br/>
-              Review: {realThis.state.selectedReview[review].description} <br/>
-              </p>
+              <div className = "reviewSection" key={idx}>
+               <div> {realThis.state.selectedReview[review].rating}
+               <StarRatings
+                 rating={realThis.state.selectedReview[review].rating}
+                 starDimension="15px"
+                 starSpacing="2px"
+                 starRatedColor="#6FB59B"
+                 starEmptyColor = "#D9D9D9"
+               />
+               </div>
+              <p id = "optionsSection"> Size [{realThis.state.selectedReview[review].options.size}] ·
+              Ice [{realThis.state.selectedReview[review].options.ice}] ·
+              Sugar [{realThis.state.selectedReview[review].options.sugar}] ·
+              Toppings [{realThis.mapToppings(realThis.state.selectedReview[review].options.toppings)}] </p>
+
+              <p> {realThis.state.selectedReview[review].description} </p>
+              </div>
             )}
           </div>
 
@@ -316,7 +340,7 @@ mapDrinks() {
                  </Link>
         <div className = "placeInfo">
           <p className = "placeInfoRow"> <span id = "placeName"> {place.name} </span> {button}</p>
-          <p> Rating: {place.rating} </p>
+          <p> Place Rating: {place.rating} </p>
 
         </div>
 
