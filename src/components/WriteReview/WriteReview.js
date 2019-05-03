@@ -160,7 +160,7 @@ class WriteReview extends Component {
       const drinksRef = rootRef.child('drinks');
       const place = this.props.location.state.place;
       var realThis = this;
-      
+
       const ourDrinkId = this.state.selectedMenu;
       const ourPlaceId = this.props.location.state.ourPlaceId; //"PLC-" + this.props.location.state.place.place_id;
       const ourRating = this.state.selectedRating;
@@ -172,7 +172,7 @@ class WriteReview extends Component {
       }
       const ourDescription = this.state.additionalReview;
 
-      // make new review 
+      // make new review
       var newReviewRef = reviewsRef.push();
       const ourReviewId = "RVW" + newReviewRef.key;
       var newReview = {
@@ -192,7 +192,7 @@ class WriteReview extends Component {
       // update user.reviews to contain ourReviewId
       rootRef.child('users').child(firebase.auth().currentUser.uid).child('reviews').child(ourReviewId).set(ourReviewId);
     }
-    
+
   }
 
 
@@ -316,7 +316,7 @@ class WriteReview extends Component {
       },
       {
         key: "pudding",
-        value: "puddig",
+        value: "pudding",
         text: "pudding"
       },
       {
@@ -466,7 +466,7 @@ class WriteReview extends Component {
         </Form>
         <div className = "button-row">
         <Link to={{
-          pathname: "/PlaceReview", 
+          pathname: "/PlaceReview",
           state: {
             place: this.props.location.state.place,
             search: this.props.location.state.search
