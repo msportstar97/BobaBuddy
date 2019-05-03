@@ -13,7 +13,8 @@ class Profile extends Component {
         oldPassword: '',
         newPassword: '',
         message: '',
-        edit: false
+        edit: false,
+        userReviews: []
     }
 
     this.editPassword = this.editPassword.bind(this);
@@ -75,6 +76,28 @@ class Profile extends Component {
   render() {
     let button;
     let errorMessage = <p></p>
+    let dbuser = {};
+    let reviews;
+    var realThis = this;
+    user = firebase.auth().currentUser.email;
+    uref = firebase.database().ref().child('users');
+    uref.orderByChild('email').equalTo(user).on('value', function(snapshot){
+        if (snapshot.exists()){
+            snapshot.forEach(function(data) {
+                dbuser[data.key] = data.val;
+            });
+        }
+        
+        realThis.setState({
+            userReviews: dbuser.reviews
+        })
+        
+        for (var i = 0; i < realThis.userReviews.length; i++){
+            
+        }
+        
+    });
+    
     if (this.state.message) {
       errorMessage = <p className="errorMessage"> {this.state.message} </p>
     }
