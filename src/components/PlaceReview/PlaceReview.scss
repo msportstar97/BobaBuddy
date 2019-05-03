@@ -12,6 +12,14 @@
   position: relative;
 }
 
+.reviewSection {
+  margin: 3vw;
+  padding: 1.5vw;
+  border: 1px solid #D9D9D9;
+  border-radius: 2vw;
+  position: relative;
+}
+
 .reviewLog {
   color: #e64545;
   right: 0;
@@ -66,4 +74,5 @@
 .selectedMenu {
   font-size: 20px;
   margin-top: 30px;
+  margin-bottom: 20px;
 }
