@@ -25,6 +25,30 @@ class Profile extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    this._isMounted = true;
+      
+    let dbuser = {};
+    let reviews;
+    var realThis = this;
+    let user = firebase.auth().currentUser.email;
+    var uref = firebase.database().ref().child('users');
+    uref.orderByChild('email').equalTo(user).on('value', function(snapshot){
+        if (snapshot.exists()){
+            snapshot.forEach(function(data) {
+                dbuser[data.key] = data.val;
+            });
+        }
+        
+        realThis.setState({
+            userReviews: dbuser.reviews
+        })
+        
+        console.log(dbuser);
+        
+    });
+  }
+
   editPassword() {
     this.setState({
       edit: true,
@@ -76,26 +100,6 @@ class Profile extends Component {
   render() {
     let button;
     let errorMessage = <p></p>
-    
-let dbuser = {};
-    let reviews;
-    var realThis = this;
-    let user = firebase.auth().currentUser.email;
-    var uref = firebase.database().ref().child('users');
-    uref.orderByChild('email').equalTo(user).on('value', function(snapshot){
-        if (snapshot.exists()){
-            snapshot.forEach(function(data) {
-                dbuser[data.key] = data.val;
-            });
-        }
-        
-        realThis.setState({
-            userReviews: dbuser.reviews
-        })
-        
-        console.log(realThis.state.userReviews);
-        
-    });
       
     if (this.state.message) {
       errorMessage = <p className="errorMessage"> {this.state.message} </p>
