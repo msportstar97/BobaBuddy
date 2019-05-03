@@ -316,7 +316,7 @@ mapDrinks() {
                  </Link>
         <div className = "placeInfo">
           <p className = "placeInfoRow"> <span id = "placeName"> {place.name} </span> {button}</p>
-          <p> {place.rating} </p>
+          <p> Rating: {place.rating} </p>
 
         </div>
 
