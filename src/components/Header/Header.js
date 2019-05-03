@@ -74,7 +74,6 @@ class Header extends Component {
               {firebase.auth().currentUser.email}
               </div>
     } else {
-      console.log("route");
       button = <div className="userProfile">
                 <Link to={{
                   pathname: "/Login",

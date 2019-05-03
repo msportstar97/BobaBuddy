@@ -2,7 +2,7 @@ import './PlaceReview.scss';
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-import { Button, Icon } from 'semantic-ui-react'
+import { Button, Icon, Rating } from 'semantic-ui-react'
 import createReactClass from 'create-react-class';
 import * as firebase from 'firebase';
 import StarRatings from 'react-star-ratings';
@@ -269,6 +269,13 @@ mapToppings(tArr) {
     }
   });
 
+  let overallRating;
+  if (realThis.state.selectedRating === -1) {
+    overallRating = "No reviews to calculate Average Rating";
+  } else {
+    overallRating = realThis.state.selectedRating;
+  }
+
     var MenuReview = createReactClass({
       render: function() {
         //console.log("this")
@@ -280,7 +287,7 @@ mapToppings(tArr) {
             </div>
             <div className = "selectedDetails">
               ${realThis.state.selectedPrice} <br/>
-              Average Rating: {realThis.state.selectedRating}
+              Average Rating: {overallRating}
             </div>
           <div className = "selectedReview">
             {Object.keys(realThis.state.selectedReview).map((review, idx) =>
