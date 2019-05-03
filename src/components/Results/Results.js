@@ -43,8 +43,9 @@ class Results extends Component {
       value: place
     })
 
-    let locUrl = `${this.geolocUrl}${place.replace(/\s/g,'+')}${this.apiKey}`;
 
+    let locUrl = `${this.geolocUrl}${place.replace(/\s/g,'+')}${this.apiKey}`;
+    console.log(locUrl);
     axios.get(locUrl).then((response) => {
       this.setState({
         geo: response.data.results[0].geometry.location
@@ -72,7 +73,7 @@ class Results extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.location.state !== this.props.location.state) {
+    if (nextProps.location.state && nextProps.location.state !== this.props.location.state) {
       let place = nextProps.location.state.place;
       this.setState({
         query: place,
@@ -115,7 +116,7 @@ class Results extends Component {
     {
       key: "rating",
       value: "rating",
-      text: "Sort By Rating"
+      text: "Sort By Place Rating"
     },
     {
       key: "drink rating",

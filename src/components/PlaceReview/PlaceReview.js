@@ -260,7 +260,7 @@ mapDrinks() {
         //console.log("this")
       return (
         <div id="menuReview">
-          <Button onClick = {(e) => realThis.backButtonPressed(e)} id="goBackMenuButton" icon ='left arrow' content = ""/>
+          <Button onClick = {(e) => realThis.backButtonPressed(e)} id="goBackMenuButton" icon ='left arrow' content = "Back to Menu"/>
           <div className = "selectedMenu">
             {realThis.state.selectedMenu}
             </div>
@@ -312,7 +312,7 @@ mapDrinks() {
                    state: {
                      place: this.props.location.state.search
                    }}} >
-                   <Button id="goBack" icon ='left arrow' content='Go Back'  labelPosition='left'/>
+                   <Button id="goBack" icon ='left arrow' content='Back to Search Results'  labelPosition='left'/>
                  </Link>
         <div className = "placeInfo">
           <p className = "placeInfoRow"> <span id = "placeName"> {place.name} </span> {button}</p>

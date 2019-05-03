@@ -79,24 +79,24 @@ class Profile extends Component {
     let dbuser = {};
     let reviews;
     var realThis = this;
-    user = firebase.auth().currentUser.email;
-    uref = firebase.database().ref().child('users');
-    uref.orderByChild('email').equalTo(user).on('value', function(snapshot){
-        if (snapshot.exists()){
-            snapshot.forEach(function(data) {
-                dbuser[data.key] = data.val;
-            });
-        }
+    // user = firebase.auth().currentUser.email;
+    // uref = firebase.database().ref().child('users');
+    // uref.orderByChild('email').equalTo(user).on('value', function(snapshot){
+    //     if (snapshot.exists()){
+    //         snapshot.forEach(function(data) {
+    //             dbuser[data.key] = data.val;
+    //         });
+    //     }
         
-        realThis.setState({
-            userReviews: dbuser.reviews
-        })
+    //     realThis.setState({
+    //         userReviews: dbuser.reviews
+    //     })
         
-        for (var i = 0; i < realThis.userReviews.length; i++){
+    //     for (var i = 0; i < realThis.userReviews.length; i++){
             
-        }
+    //     }
         
-    });
+    // });
     
     if (this.state.message) {
       errorMessage = <p className="errorMessage"> {this.state.message} </p>
