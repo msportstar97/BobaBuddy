@@ -41,7 +41,7 @@ class Login extends Component {
       
       const promise = auth.signInWithEmailAndPassword(email, password);
       promise
-          .catch(e=>console.log(e.message));
+          .catch(e=>this.handleError(e.message));
       
     } else {
       this.handleError('invalid email/password');
@@ -75,7 +75,6 @@ class Login extends Component {
     
    render() {
      if (this.state.redirect) {
-       console.log(this.props.state);
        return (
          <Redirect to='/Profile'/>
         //  <Link to={{
