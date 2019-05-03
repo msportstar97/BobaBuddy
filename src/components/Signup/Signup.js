@@ -50,7 +50,7 @@ class Signup extends Component {
       
         const promise = auth.createUserWithEmailAndPassword(email, password);
         promise
-            .catch(e=>console.log(e.message));
+            .catch(e=>this.handleError(e.message));
         
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {

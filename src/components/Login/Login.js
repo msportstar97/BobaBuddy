@@ -41,7 +41,7 @@ class Login extends Component {
       
       const promise = auth.signInWithEmailAndPassword(email, password);
       promise
-          .catch(e=>console.log(e.message));
+          .catch(e=>this.handleError(e.message));
       
     } else {
       this.handleError('invalid email/password');
@@ -77,6 +77,13 @@ class Login extends Component {
      if (this.state.redirect) {
        return (
          <Redirect to='/Profile'/>
+        //  <Link to={{
+        //   pathname: "/Results/" + value,
+        //   state: {
+        //     place: value
+        //   }}} >
+        //   <Button className = "ui color2 button">Search</Button>
+        // </Link>
        )
      }
      let errorMessage = <p></p>
