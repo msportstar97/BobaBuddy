@@ -143,10 +143,10 @@ class Profile extends Component {
           {errorMessage}
           {button}
         </div>
-        <h2 className="profileTitle"> Your Reviews </h2>
+        {/* <h2 className="profileTitle"> Your Reviews </h2>
         <div className = "yourReviews">
           {this.displayReviews()}
-        </div>
+        </div> */}
       </div>
     );
   }

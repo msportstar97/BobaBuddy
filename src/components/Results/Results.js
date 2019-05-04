@@ -25,7 +25,8 @@ class Results extends Component {
       showDrinkDropdown: false,
       drinkFilterOption: "",
       query: '',
-      value: ''
+      value: '',
+      place: ''
     }
 
     this.apiKey = '&key=AIzaSyDFtzabY5k6-NOC6V1h3b-LjftEvZyW2MY';
@@ -120,11 +121,11 @@ class Results extends Component {
       value: "rating",
       text: "Sort By Place Rating"
     },
-    {
-      key: "drink rating",
-      value: "drink rating",
-      text: "Sort By Drink Rating"
-    }
+    // {
+    //   key: "drink rating",
+    //   value: "drink rating",
+    //   text: "Sort By Drink Rating"
+    // }
   ]
 
   handleFilter = (e, {value}) => {
@@ -178,13 +179,17 @@ class Results extends Component {
   handleDrinkFilter = (e, {value}) => {
     //this.setState({drinkFilterOption: {value}})
     let pref = firebase.database().ref().child('places');
-    let ratings = [];
+    var ratings = [];
+    var realThis = this;
     this.state.results.map((place, idx) => {
-      console.log(place);
-     pref.orderByChild('placeId').equalTo(place.id).limitToFirst(1).once('value', function(snapshot) {
+      realThis.setState({
+        place: place
+      })
+     pref.orderByChild('placeId').equalTo(place.id).on('value', function(snapshot) {
        var count = 0;
        var placeId = "";
        var drinksArr = [];
+       console.log(realThis.state.place);
        if (snapshot.exists() && count === 0) {
          count++;
          snapshot.forEach(function(data) {
@@ -203,19 +208,39 @@ class Results extends Component {
          }
          var drinksRef = firebase.database().ref('drinks');
          drinksRef.orderByKey().equalTo(drinkid).on('value', function(snap) {
-          //  ratings.push(snap.)
-          ratings.push(snap.child(drinkid).val().avgRating);
-          this.setState({
+          ratings = realThis.state.ratings;
+          ratings.push({'place': realThis.state.place, 'rating': snap.child(drinkid).val().avgRating});
+          realThis.setState({
             ratings: ratings
+          });
+          ratings = realThis.state.ratings.sort((a,b) => b.rating - a.rating);
+          let sortResult = [];
+          for (var res in ratings) {
+            console.log(ratings[res].place);
+            sortResult.push(ratings[res].place);
+          }
+          realThis.setState({
+            results: sortResult
           });
         });
        } else if (count === 0) {
-         ratings.push(0);
+         ratings = realThis.state.ratings;
+         ratings.push({'place': realThis.state.place, 'rating': 0});
+         realThis.setState({
+          ratings: ratings
+         });
+         ratings = realThis.state.ratings.sort((a,b) => b.rating - a.rating);
+         let sortResult = [];
+         for (var res in ratings) {
+           sortResult.push(res.place);
+         }
+         realThis.setState({
+           results: sortResult
+         });
        }
      });
-
+     console.log(this.state.results);
     });
-    // this.state.results.sort((a,b) => b.rating - a.rating);
   }
 
    render() {
@@ -242,44 +267,6 @@ class Results extends Component {
         text: "Milk Green Tea"
       }
      ]
-
-    //  function handleDrinkFilter(e, {value}) {
-    //    //this.setState({drinkFilterOption: {value}})
-    //    console.log({value})
-    //    let pref = firebase.database().ref().child('places');
-       
-    //    for (var place in this.state.results) {
-    //     pref.orderByChild('placeId').equalTo(place.id).on('value', function(snapshot) {
-    //       if (snapshot.exists()) {
-    //         console.log(snapshot);
-    //         // this.state.ratings.push()
-    //       }
-    //     });
-
-    //    }
-    //  }
-
-      var createReactClass = require('create-react-class');
-
-
-    //   var DrinkDropdown = createReactClass({
-    //     render: function() {
-    //     return (
-    //       <div id="results" className="search-results">
-    //         <Dropdown
-    //           placeholder='Search for Drink'
-    //           fluid
-    //           search
-    //           selection
-    //           options={drinkOptions}
-    //           onChange={(e, { value }) => handleDrinkFilter(e, { value })}
-    //         />
-    //       </div>
-    //     );
-    //   }
-    // });
-
-    // console.log('results', this.state.results);
 
     let cardView;
 
@@ -348,7 +335,7 @@ class Results extends Component {
                 selection
                 options={this.filterOptions} />
 
-                { this.state.showDrinkDropdown ?           
+                {/* { this.state.showDrinkDropdown ?           
                   <div id="results" className="search-results">
                     <Dropdown
                       placeholder='Search for Drink'
@@ -358,7 +345,7 @@ class Results extends Component {
                       options={drinkOptions}
                       onChange={(e, { value }) => this.handleDrinkFilter(e, { value })}
                     />
-                  </div>: null }
+                  </div>: null } */}
             </div>
           </div>
         {cardView}
