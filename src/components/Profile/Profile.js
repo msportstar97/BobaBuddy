@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 import StarRatings from 'react-star-ratings';
 
 class Profile extends Component {
+  _isMounted = false;
   constructor(props){
     super(props);
 
@@ -32,20 +33,19 @@ class Profile extends Component {
     let dbuser = {};
     let reviews;
     var realThis = this;
-    let user = firebase.auth().currentUser.email;
+    let user = firebase.auth().currentUser.uid;
+    let email = firebase.auth().currentUser.email;
     var uref = firebase.database().ref().child('users');
-    uref.orderByChild('email').equalTo(user).on('value', function(snapshot){
+    uref.orderByChild('email').equalTo(email).on('value', function(snapshot){
         if (snapshot.exists()){
-            snapshot.forEach(function(data) {
-                dbuser[data.key] = data.val;
-            });
+            dbuser = snapshot.child(user).val();
         }
 
         realThis.setState({
             userReviews: dbuser.reviews
         })
 
-
+        //console.log(dbuser);
 
     });
   }

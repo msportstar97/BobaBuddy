@@ -117,25 +117,29 @@ class PlaceReview extends Component {
             name: "Oolong Milk Tea",
             price: 3.29,
             place: placeId,
-            reviews: ["init"]
+            reviews: ["init"],
+            avgRating: 0
     };
     var classic = {
           name: "Classic Milk Tea",
           price: 3.29,
           place: placeId,
-          reviews: ["init"]
+          reviews: ["init"],
+          avgRating: 0
     };
     var taro = {
         name: "Taro Milk Tea",
         price: 4.29,
         place: placeId,
-        reviews: ["init"]
+        reviews: ["init"],
+        avgRating: 0
     };
     var green = {
         name: "Green Milk Tea",
         price: 3.50,
         place: placeId,
-        reviews: ["init"]
+        reviews: ["init"],
+        avgRating: 0
     };
 
     fakeDrinksObjIds.push(this.makeAFakeDrink(oolong, drinksRef));
@@ -183,7 +187,7 @@ class PlaceReview extends Component {
       if (keyNum > 0) {
         avgRating = totalRating / keyNum;
       }
-      console.log(avgRating)
+      console.log("average rating", avgRating)
       // if (revArr.length >= 1) {
       //   for (var i = 0; i < revArr.length; i++) {
       //     totalRating += revArr[i].rating
@@ -192,6 +196,9 @@ class PlaceReview extends Component {
       //   avgRating = totalRating / revArr.length;
       //   console.log(avgRating);
       // }
+        
+      var rref = firebase.database.ref().child('drinks');
+      rref.child(value[0]).child('avgRating').set(avgRating);
 
 
       realThis.setState({
