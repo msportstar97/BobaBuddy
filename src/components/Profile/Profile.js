@@ -40,7 +40,6 @@ class Profile extends Component {
     uref.orderByChild('email').equalTo(email).on('value', function(snapshot){
         if (snapshot.exists()){
             dbuser = snapshot.child(user).val();
-<<<<<<< HEAD
         }
 
         realThis.setState({
@@ -49,12 +48,6 @@ class Profile extends Component {
 
         //console.log(dbuser);
 
-=======
-            realThis.setState({
-              userReviews: dbuser.reviews
-            })
-        }        
->>>>>>> 26871345628c26eaf413f8f23bb4cb1027df2b34
     });
   }
 
@@ -108,6 +101,14 @@ class Profile extends Component {
     })
   }
 
+  displayReviews() {
+    for (var key in this.state.userReviews) {
+      console.log(this.state.userReviews[key]);
+    }
+    
+
+  }
+
   render() {
     console.log(this.state.userReviews);
 
@@ -144,12 +145,7 @@ class Profile extends Component {
         </div>
         <h2 className="profileTitle"> Your Reviews </h2>
         <div className = "yourReviews">
-        {Object.keys(realThis.state.userReviews).map((review, idx) =>
-          // <p key={idx}>{realThis.state.userReviews[idx]}</p>
-          <div className = "reviewSection" key={idx}>
-           {realThis.state.userReviews[review].}
-           </div>
-        )}
+          {this.displayReviews()}
         </div>
       </div>
     );
