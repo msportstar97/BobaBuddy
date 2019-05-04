@@ -9,6 +9,7 @@ import Search from '../Search/Search.js';
 import ReactGoogleMapLoader from "react-google-maps-loader";
 import ReactGooglePlacesSuggest from "react-google-places-suggest";
 import propTypes from "prop-types";
+import * as firebase from 'firebase';
 
 const API_KEY = "AIzaSyDFtzabY5k6-NOC6V1h3b-LjftEvZyW2MY";
 
@@ -19,6 +20,7 @@ class Results extends Component {
     this.state = {
       geo: {},
       results: [],
+      ratings: [],
       filterOption: "Sort By Distance",
       showDrinkDropdown: false,
       drinkFilterOption: "",
@@ -173,50 +175,109 @@ class Results extends Component {
     })
   }
 
+  handleDrinkFilter = (e, {value}) => {
+    //this.setState({drinkFilterOption: {value}})
+    let pref = firebase.database().ref().child('places');
+    let ratings = [];
+    this.state.results.map((place, idx) => {
+      console.log(place);
+     pref.orderByChild('placeId').equalTo(place.id).limitToFirst(1).once('value', function(snapshot) {
+       var count = 0;
+       var placeId = "";
+       var drinksArr = [];
+       if (snapshot.exists() && count === 0) {
+         count++;
+         snapshot.forEach(function(data) {
+           placeId = data.key;
+         });
+         drinksArr = snapshot.child(placeId).val().drinks;
+         var drinkid;
+         if (value === 'oolong milk tea') {
+           drinkid = drinksArr[0].ourDrinkId;
+         } else if (value === 'classic milk tea') {
+           drinkid = drinksArr[1].ourDrinkId;
+         } else if (value === 'taro milk tea') {
+           drinkid = drinksArr[2].ourDrinkId;
+         } else {
+           drinkid = drinksArr[3].ourDrinkId;
+         }
+         var drinksRef = firebase.database().ref('drinks');
+         drinksRef.orderByKey().equalTo(drinkid).on('value', function(snap) {
+          //  ratings.push(snap.)
+          ratings.push(snap.child(drinkid).val().avgRating);
+          this.setState({
+            ratings: ratings
+          });
+        });
+       } else if (count === 0) {
+         ratings.push(0);
+       }
+     });
+
+    });
+    // this.state.results.sort((a,b) => b.rating - a.rating);
+  }
+
    render() {
      let {query, value} = this.state;
      const drinkOptions = [
        {
-         key: "peach oolong tea",
-         value: "peach oolong tea",
-         text: "Peach Oolong Tea"
-       },
-       {
-         key: "oolong tea",
-         value: "oolong tea",
-         text: "Oolong Tea"
-       },
-       {
          key: "oolong milk tea",
          value: "oolong milk tea",
          text: "Oolong Milk Tea"
-       }
+       },
+       {
+         key: "classic milk tea",
+         value: "classic milk tea",
+         text: "Classic Milk Tea"
+       },
+       {
+         key: "taro milk tea",
+         value: "taro milk tea",
+         text: "Taro Milk Tea"
+       },
+       {
+        key: "milk green tea",
+        value: "milk green tea",
+        text: "Milk Green Tea"
+      }
      ]
 
-     function handleDrinkFilter(e, {value}) {
-       //this.setState({drinkFilterOption: {value}})
-       console.log({value})
-     }
+    //  function handleDrinkFilter(e, {value}) {
+    //    //this.setState({drinkFilterOption: {value}})
+    //    console.log({value})
+    //    let pref = firebase.database().ref().child('places');
+       
+    //    for (var place in this.state.results) {
+    //     pref.orderByChild('placeId').equalTo(place.id).on('value', function(snapshot) {
+    //       if (snapshot.exists()) {
+    //         console.log(snapshot);
+    //         // this.state.ratings.push()
+    //       }
+    //     });
+
+    //    }
+    //  }
 
       var createReactClass = require('create-react-class');
 
 
-      var DrinkDropdown = createReactClass({
-        render: function() {
-        return (
-          <div id="results" className="search-results">
-            <Dropdown
-              placeholder='Search for Drink'
-              fluid
-              search
-              selection
-              options={drinkOptions}
-              onChange={(e, { value }) => handleDrinkFilter(e, { value })}
-            />
-          </div>
-        );
-      }
-    });
+    //   var DrinkDropdown = createReactClass({
+    //     render: function() {
+    //     return (
+    //       <div id="results" className="search-results">
+    //         <Dropdown
+    //           placeholder='Search for Drink'
+    //           fluid
+    //           search
+    //           selection
+    //           options={drinkOptions}
+    //           onChange={(e, { value }) => handleDrinkFilter(e, { value })}
+    //         />
+    //       </div>
+    //     );
+    //   }
+    // });
 
     // console.log('results', this.state.results);
 
@@ -287,7 +348,17 @@ class Results extends Component {
                 selection
                 options={this.filterOptions} />
 
-                { this.state.showDrinkDropdown ? <DrinkDropdown /> : null }
+                { this.state.showDrinkDropdown ?           
+                  <div id="results" className="search-results">
+                    <Dropdown
+                      placeholder='Search for Drink'
+                      fluid
+                      search
+                      selection
+                      options={drinkOptions}
+                      onChange={(e, { value }) => this.handleDrinkFilter(e, { value })}
+                    />
+                  </div>: null }
             </div>
           </div>
         {cardView}

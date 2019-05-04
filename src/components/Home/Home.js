@@ -13,7 +13,7 @@ class Home extends Component {
            <br></br>
            Want to leave a review for specific boba at a place?
            <br></br>
-           Search for a place to find boba places nearby. Login to leave reviews.
+           Search for a place to find boba places (and reviews of their menu) nearby. Login to leave reviews.
          </p>
           <Search />
        </div>

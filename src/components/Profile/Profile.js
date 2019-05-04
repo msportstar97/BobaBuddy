@@ -25,13 +25,14 @@ class Profile extends Component {
     this.handleChangeNewPassword = this.handleChangeNewPassword.bind(this);
     this.changePassword = this.changePassword.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
     this._isMounted = true;
 
     let dbuser = {};
-    let reviews;
+    let reviews = [];
     var realThis = this;
     let user = firebase.auth().currentUser.uid;
     let email = firebase.auth().currentUser.email;
@@ -39,6 +40,7 @@ class Profile extends Component {
     uref.orderByChild('email').equalTo(email).on('value', function(snapshot){
         if (snapshot.exists()){
             dbuser = snapshot.child(user).val();
+<<<<<<< HEAD
         }
 
         realThis.setState({
@@ -47,6 +49,12 @@ class Profile extends Component {
 
         //console.log(dbuser);
 
+=======
+            realThis.setState({
+              userReviews: dbuser.reviews
+            })
+        }        
+>>>>>>> 26871345628c26eaf413f8f23bb4cb1027df2b34
     });
   }
 
@@ -101,6 +109,8 @@ class Profile extends Component {
   }
 
   render() {
+    console.log(this.state.userReviews);
+
     let button;
     let errorMessage = <p></p>
     let realThis = this;
