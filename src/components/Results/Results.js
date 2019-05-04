@@ -177,7 +177,6 @@ class Results extends Component {
 
   handleDrinkFilter = (e, {value}) => {
     //this.setState({drinkFilterOption: {value}})
-    console.log({value})
     let pref = firebase.database().ref().child('places');
     let ratings = [];
     this.state.results.map((place, idx) => {
@@ -193,28 +192,30 @@ class Results extends Component {
          });
          drinksArr = snapshot.child(placeId).val().drinks;
          var drinkid;
-         if (value === 'Oolong Milk Tea') {
+         if (value === 'oolong milk tea') {
            drinkid = drinksArr[0].ourDrinkId;
-         } else if (value === 'Classic Milk Tea') {
+         } else if (value === 'classic milk tea') {
            drinkid = drinksArr[1].ourDrinkId;
-         } else if (value === 'Taro Milk Tea') {
+         } else if (value === 'taro milk tea') {
            drinkid = drinksArr[2].ourDrinkId;
          } else {
            drinkid = drinksArr[3].ourDrinkId;
          }
-
-         var drinksRef = firebase.database.ref('drinks');
+         var drinksRef = firebase.database().ref('drinks');
          drinksRef.orderByKey().equalTo(drinkid).on('value', function(snap) {
           //  ratings.push(snap.)
-           this.setState({
-             ratings: ratings
-           });
-         });
-         // this.state.ratings.push()
+          ratings.push(snap.child(drinkid).val().avgRating);
+          this.setState({
+            ratings: ratings
+          });
+        });
+       } else if (count === 0) {
+         ratings.push(0);
        }
      });
 
     });
+    // this.state.results.sort((a,b) => b.rating - a.rating);
   }
 
    render() {

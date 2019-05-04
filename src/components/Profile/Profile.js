@@ -39,16 +39,11 @@ class Profile extends Component {
     uref.orderByChild('email').equalTo(email).on('value', function(snapshot){
         if (snapshot.exists()){
             dbuser = snapshot.child(user).val();
-        }
-        
-        // console.log(dbuser);
-        
+            realThis.setState({
+              userReviews: dbuser.reviews
+            })
+        }        
     });
-    console.log(dbuser);
-    realThis.setState({
-      userReviews: dbuser.reviews
-    })
-    console.log(this.state.userReviews);
   }
 
   editPassword() {
@@ -100,6 +95,8 @@ class Profile extends Component {
   }
 
   render() {
+    console.log(this.state.userReviews);
+
     let button;
     let errorMessage = <p></p>
       
