@@ -196,7 +196,7 @@ class PlaceReview extends Component {
       //   avgRating = totalRating / revArr.length;
       //   console.log(avgRating);
       // }
-        
+
       var rref = firebase.database.ref().child('drinks');
       rref.child(value[0]).child('avgRating').set(avgRating);
 

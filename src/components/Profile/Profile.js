@@ -133,7 +133,14 @@ class Profile extends Component {
           {button}
         </div>
         <h2 className="profileTitle"> Your Reviews </h2>
-
+        <div className = "yourReviews">
+        {Object.keys(realThis.state.userReviews).map((review, idx) =>
+          // <p key={idx}>{realThis.state.userReviews[idx]}</p>
+          <div className = "reviewSection" key={idx}>
+           {realThis.state.userReviews[review].}
+           </div>
+        )}
+        </div>
       </div>
     );
   }
