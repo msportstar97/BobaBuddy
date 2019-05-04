@@ -28,8 +28,6 @@ class App extends Component {
         });
       }
     })) 
-    console.log("app");
-    console.log(this.state.loggedIn);
 
     this.updatelogin = this.updatelogin;
   }

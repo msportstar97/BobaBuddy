@@ -86,7 +86,7 @@ class PlaceReview extends Component {
         }
         // send new place object to firebase
         placesRef.child(ourPlaceId).set(newPlace);
-
+        console.log(placesRef.child(ourPlaceId));
         // console.log('our place id', ourPlaceId);
 
         // view firebase db
@@ -132,7 +132,7 @@ class PlaceReview extends Component {
         reviews: ["init"]
     };
     var green = {
-        name: "Green Milk Tea",
+        name: "Milk Green Tea",
         price: 3.50,
         place: placeId,
         reviews: ["init"]
@@ -179,11 +179,11 @@ class PlaceReview extends Component {
         console.log(key)
         totalRating += revArr[key].rating
       }
-      console.log(totalRating);
+
       if (keyNum > 0) {
         avgRating = totalRating / keyNum;
       }
-      console.log(avgRating)
+
       // if (revArr.length >= 1) {
       //   for (var i = 0; i < revArr.length; i++) {
       //     totalRating += revArr[i].rating

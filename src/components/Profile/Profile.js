@@ -24,13 +24,14 @@ class Profile extends Component {
     this.handleChangeNewPassword = this.handleChangeNewPassword.bind(this);
     this.changePassword = this.changePassword.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
     this._isMounted = true;
       
     let dbuser = {};
-    let reviews;
+    let reviews = [];
     var realThis = this;
     let user = firebase.auth().currentUser.uid;
     let email = firebase.auth().currentUser.email;
@@ -40,13 +41,14 @@ class Profile extends Component {
             dbuser = snapshot.child(user).val();
         }
         
-        realThis.setState({
-            userReviews: dbuser.reviews
-        })
-        
-        //console.log(dbuser);
+        // console.log(dbuser);
         
     });
+    console.log(dbuser);
+    realThis.setState({
+      userReviews: dbuser.reviews
+    })
+    console.log(this.state.userReviews);
   }
 
   editPassword() {
