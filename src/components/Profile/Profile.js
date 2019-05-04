@@ -4,6 +4,7 @@ import {Form, FormControl} from 'react-bootstrap';
 import { Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import * as firebase from 'firebase';
+import StarRatings from 'react-star-ratings';
 
 class Profile extends Component {
   constructor(props){
@@ -27,7 +28,7 @@ class Profile extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-      
+
     let dbuser = {};
     let reviews;
     var realThis = this;
@@ -39,17 +40,18 @@ class Profile extends Component {
                 dbuser[data.key] = data.val;
             });
         }
-        
+
         realThis.setState({
             userReviews: dbuser.reviews
         })
-        
-        console.log(dbuser);
-        
+
+
+
     });
   }
 
   editPassword() {
+
     this.setState({
       edit: true,
       message: ''
@@ -69,6 +71,7 @@ class Profile extends Component {
   }
 
   changePassword() {
+
     var user = firebase.auth().currentUser;
 
     var credential = firebase.auth.EmailAuthProvider.credential(
@@ -100,7 +103,7 @@ class Profile extends Component {
   render() {
     let button;
     let errorMessage = <p></p>
-      
+    let realThis = this;
     if (this.state.message) {
       errorMessage = <p className="errorMessage"> {this.state.message} </p>
     }
@@ -130,9 +133,7 @@ class Profile extends Component {
           {button}
         </div>
         <h2 className="profileTitle"> Your Reviews </h2>
-        <div className="yourReviews">
 
-        </div>
       </div>
     );
   }
